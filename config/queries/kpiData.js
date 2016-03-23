@@ -21,7 +21,19 @@ export const queryConfig = {
           {
             name: 'calc_portfolio',
             func: 'calc'
-          }
+          },          
+          {
+            name: 'calc_o_s',
+            func: 'calc'
+          },
+          {
+            name: 'calc_default_propensity',
+            func: 'calc'
+          },
+          {
+            name: 'calc_delinquency_recency',
+            func: 'calc'
+          },
     ],
     pivot: {
         rows: [

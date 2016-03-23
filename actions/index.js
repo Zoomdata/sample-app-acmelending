@@ -6,6 +6,9 @@ export const SET_LOAN_GRADE = 'SET_LOAN_GRADE';
 export const REQUEST_TREND_DATA = 'REQUEST_TREND_DATA';
 export const RECEIVE_TREND_DATA = 'RECEIVE_TREND_DATA';
 export const SET_TREND_LOAN_GRADE = 'SET_TREND_LOAN_GRADE';
+export const SET_TREND_LOAN_STATUS = 'SET_TREND_LOAN_STATUS';
+export const SET_TREND_EMP_LENGTH = 'SET_TREND_EMP_LENGTH';
+export const CHANGE_TREND_FILTER = 'CHANGE_TREND_FILTER';
 
 export function requestGradeData(source) {
     return {
@@ -66,4 +69,24 @@ export function setTrendLoanGrade(param) {
 		type: SET_TREND_LOAN_GRADE,
 		param
 	}
+}
+
+export function setTrendLoanStatus(param) {
+    return {
+        type: SET_TREND_LOAN_STATUS,
+        param
+    }
+}
+
+export function setTrendEmpLength(param) {
+    return {
+        type: SET_TREND_EMP_LENGTH,
+        param
+    }
+}
+
+export function changeTrendFilter() {
+    return {
+        type: CHANGE_TREND_FILTER
+    }
 }

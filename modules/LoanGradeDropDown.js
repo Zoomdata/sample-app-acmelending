@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
 
 export default class LoanGradeDropDown extends Component {
-	componentWillUpdate(nextProps, nextState) {
-	
-	}
 
 	render() {
 
@@ -34,7 +31,7 @@ export default class LoanGradeDropDown extends Component {
 
 		var listItems = labels.map(function(item, index) {
 	      return (
-	        <MenuItem key={index} eventKey={item}>{item}
+	        <MenuItem key={index} id={item}>{item}
 	        </MenuItem>
 	      )
 	    }.bind(this));

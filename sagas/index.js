@@ -14,7 +14,7 @@ function fetchDataApi(thread, group) {
         thread.on('thread:message', function(data) {
             queryData = data;
             resolve(queryData);
-        })
+        });
         thread.on('thread:notDirtyData', function() {
             if (queryGroup === 'grade') {
                 gradeQueryRunning = false;
@@ -27,7 +27,7 @@ function fetchDataApi(thread, group) {
         });
         thread.on('thread:exeption', function(error) {
             reject(error);
-        })
+        });
     })
 }
 
@@ -42,21 +42,41 @@ function getThread(client, query) {
     return client.run(query);
 }
 
-function* changeTrendGradeQuery(getState) {
+
+var makeFilter = function(path) {
+    return function(value) {
+        var result = [];
+        if (value !== 'All' && value !== undefined) {
+            result.push( {
+              path: path,
+              operation: 'IN',
+              value: [value],
+              "form": null
+            });
+        }
+        return result;
+    };
+}
+var trendGradeFilter = makeFilter('grade');
+var trendStatusFilter = makeFilter('loan_status');
+var trendEmpLengthFilter = makeFilter('emp_length');
+
+function* changeTrendQuery(getState) {
     while(true) {
-        yield take(actions.SET_TREND_LOAN_GRADE);
+        yield take(actions.CHANGE_TREND_FILTER);
         var state = getState();
 
         var loanGrade = state.chartFilters.trendLoanGrade;
+        var filters = trendGradeFilter(loanGrade);
 
-        var filteredQueryConfig;
-        if (loanGrade === 'All') {
-            filteredQueryConfig = trendData.queryConfig;
-           // trendData.queryConfig
-        } else {
-            trendData.filterConfig.filters[0].value = [loanGrade];
-            filteredQueryConfig = Object.assign({}, trendData.queryConfig, trendData.filterConfig);
-        }
+        var loanStatus = state.chartFilters.trendLoanStatus;
+        filters = filters.concat(trendStatusFilter(loanStatus));
+
+        var empLength = state.chartFilters.trendEmpLength;
+        filters = filters.concat(trendEmpLengthFilter(empLength));
+
+        var filteredQueryConfig = Object.assign({}, trendData.queryConfig, 
+            { filters: filters});
 
         yield fork(fetchTrendData, ZoomdataClient, trendData.source, filteredQueryConfig);
     }
@@ -132,7 +152,7 @@ export default function* root(getState) {
     ZoomdataClient = client;
     yield call(client.sources.update, {name: 'Lending Club Loans Data'})
     yield fork(startup, ZoomdataClient);
-    yield fork(changeTrendGradeQuery, getState);
+    yield fork(changeTrendQuery, getState);
 }
 
 export let ZoomdataClient = undefined;

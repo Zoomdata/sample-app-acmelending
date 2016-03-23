@@ -26,15 +26,3 @@ export const queryConfig = {
           }
     ]
 };
-
-export var filterConfig = {
-    filters: 
-      [
-        {
-          path: 'grade',
-          operation: 'IN',
-          value: [],
-          "form": null
-        }
-      ]
-}

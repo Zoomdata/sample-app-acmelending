@@ -12,7 +12,7 @@ const mapDispatchToProps = (dispatch) => {
     	if (!_.isEqual(param, prevParam)) {
     		prevParam = param;
       		dispatch(setLoanGrade(param))
-      	}
+      }
     }
   }
 }
@@ -23,21 +23,29 @@ const mapStateToProps = (state) => {
     }
 };
 
+var labelStyle = {
+  margin: 'auto',
+  width: '70%'
+};
+
 const VisibleDonut = ({
 	data,
-    onClick
+  onClick
 }) => {
 	var height = 500;
-	var width = height * 1.6; //golden ratio
+	var width = height * 1.2; //golden ratio
     return (
         <div>
-        	<div><h4>Select a pie slice to explore associated KPIs</h4></div>
+          <div style={labelStyle}>
+            <label><h4>Select a pie slice to explore associated KPIs</h4></label>
+          </div>
+          
         	<Donut 
-				items={data}
-				width={width}
-				height={height}
-				onClick={onClick}
-			/>
+      				items={data}
+      				width={width}
+      				height={height}
+      				onClick={onClick}
+    			/>
         </div>
     )
 };
