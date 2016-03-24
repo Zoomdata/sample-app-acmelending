@@ -2,11 +2,12 @@ import { take, put, call, fork, select } from 'redux-saga/effects';
 import * as actions from '../actions';
 import * as gradeData from '../config/queries/gradeData';
 import * as kpiData from '../config/queries/kpiData';
+import * as kpiTotals from '../config/queries/kpiTotals';
 import * as trendData from '../config/queries/trendData';
 import { createClient } from '../config';
 
 let queryData = [];
-let gradeQueryRunning, kpiQueryRunning, trendQueryRunning;
+let gradeQueryRunning, kpiQueryRunning, kpiTotalQueryRunning, trendQueryRunning;
 
 function fetchDataApi(thread, group) {
     var queryGroup = group;
@@ -115,9 +116,28 @@ function* fetchKPITable(client, source, queryConfig) {
     }
     while (kpiQueryRunning) {
         const data = yield call(fetchDataApi, KPIDataThread, 'kpi');
-        // shouldn't it be Not Running??
         if (kpiQueryRunning) {
             yield put(actions.receiveKPIData(data));
+        }
+    }
+}
+
+function* fetchKPITotals(client, source, queryConfig) {
+    kpiTotalQueryRunning = true;
+    if (!KPITotalQuery) {
+        const query = yield call(getQuery, client, source, queryConfig);
+        KPITotalQuery = query;
+    }
+    yield put(actions.requestKPITotals(kpiData.source));
+    if (!KPITotalThread) {
+        const thread = yield call(getThread, client, KPITotalQuery);
+        KPITotalThread = thread;
+    }
+    while (kpiTotalQueryRunning) {
+        const data = yield call(fetchDataApi, KPITotalThread, 'kpi');
+        // shouldn't it be Not Running??
+        if (kpiTotalQueryRunning) {
+            yield put(actions.receiveKPITotals(data));
         }
     }
 }
@@ -144,6 +164,7 @@ function* fetchGradeData(client, source, queryConfig) {
 function* startup(client) {
     yield fork(fetchGradeData, client, gradeData.source, gradeData.queryConfig);
     yield fork(fetchKPITable, client, kpiData.source, kpiData.queryConfig);
+    yield fork(fetchKPITotals, client, kpiTotals.source, kpiTotals.queryConfig);
     yield fork(fetchTrendData, client, trendData.source, trendData.queryConfig);
 }
 
@@ -160,5 +181,7 @@ export let GradeDataQuery = undefined;
 export let GradeDataThread = undefined;
 export let KPIDataQuery = undefined;
 export let KPIDataThread = undefined;
+export let KPITotalQuery = undefined;
+export let KPITotalThread = undefined;
 export let TrendDataQuery = undefined;
 export let TrendDataThread = undefined;

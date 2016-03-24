@@ -2,6 +2,10 @@ export const REQUEST_GRADE_DATA = 'REQUEST_GRADE_DATA';
 export const RECEIVE_GRADE_DATA = 'RECEIVE_GRADE_DATA';
 export const REQUEST_KPI_DATA = 'REQUEST_KPI_DATA';
 export const RECEIVE_KPI_DATA = 'RECEIVE_KPI_DATA';
+export const REQUEST_KPI_TOTALS = 'REQUEST_KPI_TOTALS';
+export const RECEIVE_KPI_TOTALS = 'RECEIVE_KPI_TOTALS';
+
+
 export const SET_LOAN_GRADE = 'SET_LOAN_GRADE';
 export const REQUEST_TREND_DATA = 'REQUEST_TREND_DATA';
 export const RECEIVE_TREND_DATA = 'RECEIVE_TREND_DATA';
@@ -34,6 +38,20 @@ export function requestKPIData(source) {
 export function receiveKPIData(data) {
     return {
         type: RECEIVE_KPI_DATA,
+        data
+    }
+}
+
+export function requestKPITotals(source) {
+    return {
+        type: REQUEST_KPI_TOTALS,
+        source
+    }
+}
+
+export function receiveKPITotals(data) {
+    return {
+        type: RECEIVE_KPI_TOTALS,
         data
     }
 }

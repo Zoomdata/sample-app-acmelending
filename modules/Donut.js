@@ -11,25 +11,25 @@ export default class Donut extends Component {
 	    this.updateChart(this.props);
   	}
 
-  	updateChart(nextProps) {
+  	updateChart(props) {
 		// give up quickly if props are empty.
-		if (!nextProps) {
+		if (!props) {
 			return null;
 		}
-		var newChartOptions = this.makeChartOptions(nextProps);
+		var newChartOptions = this.makeChartOptions(props);
 		this.chart.setOption(newChartOptions);
 
-		this.chart.on('CLICK', nextProps.onClick);
+		this.chart.on('CLICK', props.onClick);
 	}
 
 
-	makeChartOptions(nextProps) {
+	makeChartOptions(props) {
 
 		var items;
-		if (!this.props.items) {
+		if (!props.items) {
 			items = [];
 		} else {
-			items = this.props.items;
+			items = props.items;
 		}
 		var data = items.map(function(item) {
 			var elem = {

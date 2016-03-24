@@ -4,6 +4,7 @@ var ReactDOM = require('react-dom');
 var echarts = require('echarts');
 var ecConfig=require('echarts');
 var dateFormat = require('dateformat');
+var numeral = require('numeral');
 
 export default class Trend extends Component {
 
@@ -49,7 +50,7 @@ export default class Trend extends Component {
 		        trigger: 'axis'
 		    },
 		    legend: {
-		    	show: false
+		    	show: true
 		    },
 		    toolbox: {
 		        show : false
@@ -70,7 +71,19 @@ export default class Trend extends Component {
 		    ],
 		    yAxis : [
 		        {
-		            type : 'value'
+		            type : 'value',
+		            axisLabel: {
+		            	formatter: function (v) {
+		            		var result;
+		            		if (v > 99999) {
+		            			result = '$' + numeral(v/1000).format('0,0') + ' k';
+		            		} else {
+		            			result = '$' + numeral(v).format('0,0');
+		            		}
+		            		return result;
+		                }
+		            }
+
 		        },
 		      	{
 		            type : 'value',

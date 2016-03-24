@@ -56,6 +56,26 @@ const data = (state = initialState, action) => {
             });
 
             return obj;
+        case actions.REQUEST_KPI_TOTALS:
+
+            var obj = Object.assign({}, state, { 
+                kpiTotals: {
+                    source: action.source,
+                    isFetching: true
+                }
+            });
+
+            return obj;
+        case actions.RECEIVE_KPI_TOTALS:
+            var obj = Object.assign({}, state, {
+                kpiTotals: {
+                    source: state.kpiTotals.source,
+                    isFetching: false,
+                    data: action.data
+                }
+            });
+
+            return obj;
         case actions.REQUEST_TREND_DATA:
 
             var obj = Object.assign({}, state, { 

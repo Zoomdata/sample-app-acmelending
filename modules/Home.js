@@ -14,10 +14,10 @@ export default class Home extends Component {
 	render() {
 		return (
 			<div className="row" style={controlStyle}>
-				<div className="col-md-8">
+				<div className="col-md-6">
 					<VisibleDonut/>
-				</div>
-				<div className="col-md-4">
+				</div>			
+				<div className="col-md-6">
 					<VisibleKPIs/>
 				</div>
 
