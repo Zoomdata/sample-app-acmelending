@@ -135,7 +135,6 @@ function* fetchKPITotals(client, source, queryConfig) {
     }
     while (kpiTotalQueryRunning) {
         const data = yield call(fetchDataApi, KPITotalThread, 'kpi');
-        // shouldn't it be Not Running??
         if (kpiTotalQueryRunning) {
             yield put(actions.receiveKPITotals(data));
         }
