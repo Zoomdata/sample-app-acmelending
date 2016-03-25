@@ -11,7 +11,7 @@ const mapDispatchToProps = (dispatch) => {
     onClick: (param) => {
     	if (!_.isEqual(param, prevParam)) {
     		prevParam = param;
-      		dispatch(setLoanGrade(param))
+        dispatch(setLoanGrade(param))
       }
     }
   }

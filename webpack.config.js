@@ -1,8 +1,14 @@
-var webpack = require('webpack')
+var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
   entry: './index.js',
-
+  resolve: {
+      alias: {
+        "ag-grid-root" : __dirname + "/node_modules/ag-grid/dist/styles"
+      },
+      extensions: ['', '.js', '.jsx']
+  },
   output: {
     path: 'public',
     filename: 'bundle.js',
@@ -25,6 +31,21 @@ module.exports = {
         test: /\.js$/, 
         exclude: /node_modules/, 
         loader: 'babel-loader?presets[]=es2015&presets[]=react' 
+      },
+      { 
+        test: /\.jsx$/, 
+        include: /node_modules/, 
+        loader: 'babel-loader?presets[]=es2015&presets[]=react' 
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css',
+        include: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css-loader',
+        exclude: /node_modules/
       }
     ]
   }

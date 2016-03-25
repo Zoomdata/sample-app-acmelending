@@ -63,25 +63,36 @@ export default class KPIs extends Component {
 	  	if (canRender === true) {
 	  		return (
 				<div>
-                    <div style={{padding:10}}/>
+                    <label style={{paddingLeft:140}}>
+                        <h5>% Portfolio: { numeral(portfolioPercent).format('0.00')} %</h5>
+                    </label>
                     <Bullet
                         title='% Portfolio'
                         measure={portfolioPercent}
                         target={portfolioPercent}              
                     />
-                    <div style={{padding:10}}/>
+                    <label style={{paddingLeft:140, paddingTop:30}}>
+                        <h5>% O/S: { numeral(osPercent).format('0.00')} %
+                        </h5>
+                    </label>
                     <Bullet
                         title='% O/S'
                         measure={osPercent}
                         target={osPercent}              
                     />
-                    <div style={{padding:10}}/>
+                    <label style={{paddingLeft:140, paddingTop:30}}>
+                        <h5>Default Propencity: { numeral(defaultPropense).format('0.00')} %
+                        </h5>
+                    </label>
                     <Bullet
                         title='Deflt Propens'
                         measure={defaultPropense}
                         target={defaultPropense}              
                     />
-                    <div style={{padding:10}}/>
+                    <label style={{paddingLeft:140, paddingTop:30}}>
+                        <h5>Delinquency Recency: { numeral(delinqRecency).format('0.00')} %
+                        </h5>
+                    </label>
                     <Bullet
                         title='Delinq Recency'
                         measure={delinqRecency}

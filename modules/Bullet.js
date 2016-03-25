@@ -22,11 +22,13 @@ export default class Bullet extends Component {
                 lineColor:'#999',
                 lineWidth:1,
                 categories:[],
-                labels: { style: {
-                            fontWeight:'bold',
-                            width: 300
-                          }
-                        }        
+                labels: { 
+                    enabled: false,
+                    style: {
+                        fontWeight:'bold',
+                        width: 300
+                    }
+                }        
             },
             yAxis:{
                 min:0,

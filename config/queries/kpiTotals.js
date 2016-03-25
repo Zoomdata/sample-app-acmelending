@@ -26,7 +26,7 @@ export const queryConfig = {
           {
             name: 'calc_delinquency_recency',
             func: 'calc'
-          },
+          }
     ],
     pivot: {
         rows: [

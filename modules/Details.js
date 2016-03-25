@@ -1,8 +1,8 @@
 // modules/Details.js
-import React from 'react'
-import { Link } from 'react-router'
-import NavLink from './NavLink'
-import { browserHistory } from 'react-router'
+import React from 'react';
+import { Link } from 'react-router';
+import NavLink from './NavLink';
+import { browserHistory } from 'react-router';
 
 export default React.createClass({
 

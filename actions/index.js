@@ -4,7 +4,8 @@ export const REQUEST_KPI_DATA = 'REQUEST_KPI_DATA';
 export const RECEIVE_KPI_DATA = 'RECEIVE_KPI_DATA';
 export const REQUEST_KPI_TOTALS = 'REQUEST_KPI_TOTALS';
 export const RECEIVE_KPI_TOTALS = 'RECEIVE_KPI_TOTALS';
-
+export const REQUEST_PIVOT_DATA = 'REQUEST_PIVOT_DATA';
+export const RECEIVE_PIVOT_DATA = 'RECEIVE_PIVOT_DATA';
 
 export const SET_LOAN_GRADE = 'SET_LOAN_GRADE';
 export const REQUEST_TREND_DATA = 'REQUEST_TREND_DATA';
@@ -66,6 +67,20 @@ export function requestTrendData(source) {
 export function receiveTrendData(data) {
     return {
         type: RECEIVE_TREND_DATA,
+        data
+    }
+}
+
+export function requestPivotData(source) {
+    return {
+        type: REQUEST_PIVOT_DATA,
+        source
+    }
+}
+
+export function receivePivotData(data) {
+    return {
+        type: RECEIVE_PIVOT_DATA,
         data
     }
 }

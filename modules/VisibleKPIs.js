@@ -19,7 +19,7 @@ const mapStateToProps = (state) => {
 
 var kpisBlockStyle = {
   paddingLeft: '30',
-  paddingTop: '70',
+  paddingTop: '10',
   paddingRight: '30'
 };
 

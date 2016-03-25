@@ -7,8 +7,14 @@ const initialState = {
     kpiData: {
         isFetching: false
     },
+    kpiTotals: {
+        isFetching: false
+    },
     trendData: {
         isFetching: false
+    },
+    pivotData: {
+        isFetching: false        
     }
 }
 
@@ -46,7 +52,6 @@ const data = (state = initialState, action) => {
 
             return obj;
         case actions.RECEIVE_KPI_DATA:
-
             var obj = Object.assign({}, state, {
                 kpiData: {
                     source: state.kpiData.source,
@@ -91,6 +96,27 @@ const data = (state = initialState, action) => {
             var obj = Object.assign({}, state, {
                 trendData: {
                     source: state.trendData.source,
+                    isFetching: false,
+                    data: action.data
+                }
+            });
+
+            return obj;
+        case actions.REQUEST_PIVOT_DATA:
+
+            var obj = Object.assign({}, state, { 
+                pivotData: {
+                    source: action.source,
+                    isFetching: true
+                }
+            });
+
+            return obj;
+        case actions.RECEIVE_PIVOT_DATA:
+
+            var obj = Object.assign({}, state, {
+                pivotData: {
+                    source: state.pivotData.source,
                     isFetching: false,
                     data: action.data
                 }

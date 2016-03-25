@@ -3,11 +3,12 @@ import * as actions from '../actions';
 import * as gradeData from '../config/queries/gradeData';
 import * as kpiData from '../config/queries/kpiData';
 import * as kpiTotals from '../config/queries/kpiTotals';
+import * as pivotData from '../config/queries/pivotData';
 import * as trendData from '../config/queries/trendData';
 import { createClient } from '../config';
 
 let queryData = [];
-let gradeQueryRunning, kpiQueryRunning, kpiTotalQueryRunning, trendQueryRunning;
+let gradeQueryRunning, kpiQueryRunning, kpiTotalQueryRunning, trendQueryRunning, pivotQueryRunning;
 
 function fetchDataApi(thread, group) {
     var queryGroup = group;
@@ -21,8 +22,12 @@ function fetchDataApi(thread, group) {
                 gradeQueryRunning = false;
             } else if (queryGroup === 'kpi') {
                 kpiQueryRunning = false;
+            } else if (queryGroup === 'kpitotals') {
+                kpiTotalQueryRunning = false;
             } else if (queryGroup === 'trend') {
                 trendQueryRunning = false;
+            } else if (queryGroup === 'pivot') {
+                pivotQueryRunning = false;
             }
             resolve(queryData);
         });
@@ -103,7 +108,7 @@ function* fetchTrendData(client, source, queryConfig) {
     }
 }
 
-function* fetchKPITable(client, source, queryConfig) {
+function* fetchKPIData(client, source, queryConfig) {
     kpiQueryRunning = true;
     if (!KPIDataQuery) {
         const query = yield call(getQuery, client, source, queryConfig);
@@ -134,9 +139,28 @@ function* fetchKPITotals(client, source, queryConfig) {
         KPITotalThread = thread;
     }
     while (kpiTotalQueryRunning) {
-        const data = yield call(fetchDataApi, KPITotalThread, 'kpi');
+        const data = yield call(fetchDataApi, KPITotalThread, 'kpitotals');
         if (kpiTotalQueryRunning) {
             yield put(actions.receiveKPITotals(data));
+        }
+    }
+}
+
+function* fetchPivotData(client, source, queryConfig) {
+    pivotQueryRunning = true;
+    if (!PivotDataQuery) {
+        const query = yield call(getQuery, client, source, queryConfig);
+        PivotDataQuery = query;
+    }
+    yield put(actions.requestPivotData(pivotData.source));
+    if (!PivotDataThread) {
+        const thread = yield call(getThread, client, PivotDataQuery);
+        PivotDataThread = thread;
+    }
+    while (pivotQueryRunning) {
+        const data = yield call(fetchDataApi, PivotDataThread, 'pivot');
+        if (pivotQueryRunning) {
+            yield put(actions.receivePivotData(data));
         }
     }
 }
@@ -162,9 +186,10 @@ function* fetchGradeData(client, source, queryConfig) {
 
 function* startup(client) {
     yield fork(fetchGradeData, client, gradeData.source, gradeData.queryConfig);
-    yield fork(fetchKPITable, client, kpiData.source, kpiData.queryConfig);
     yield fork(fetchKPITotals, client, kpiTotals.source, kpiTotals.queryConfig);
+    yield fork(fetchKPIData, client, kpiData.source, kpiData.queryConfig);
     yield fork(fetchTrendData, client, trendData.source, trendData.queryConfig);
+    yield fork(fetchPivotData, client, pivotData.source, pivotData.queryConfig);
 }
 
 export default function* root(getState) {
@@ -184,3 +209,5 @@ export let KPITotalQuery = undefined;
 export let KPITotalThread = undefined;
 export let TrendDataQuery = undefined;
 export let TrendDataThread = undefined;
+export let PivotDataQuery = undefined;
+export let PivotDataThread = undefined;
