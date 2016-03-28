@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import NavLink from './NavLink'
 import Home from './Home'
+import image from '../images/lendingClub.png';
 
 export default React.createClass({
   render() {
@@ -10,7 +11,7 @@ export default React.createClass({
         <nav className="navbar navbar-default">
           <div className="container-fluid">
             <div className="navbar-left">
-              <img src="/zd-data-app-01/lendingClub.png"></img>
+              <img src={image}></img>
               Activity Dashboard
             </div>
             <div className="navbar-right ">

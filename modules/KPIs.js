@@ -51,50 +51,44 @@ export default class KPIs extends Component {
 			};
 		}
 
-	  	if (this.props.totals) {
-	  		return (
-				<div>
-                    <label style={{paddingLeft:140}}>
-                        <h5>% Portfolio: { numeral(portfolioPercent).format('0.00')} %</h5>
-                    </label>
-                    <Bullet
-                        title='% Portfolio'
-                        measure={portfolioPercent}
-                        target={portfolioPercent}              
-                    />
-                    <label style={{paddingLeft:140, paddingTop:30}}>
-                        <h5>% O/S: { numeral(osPercent).format('0.00')} %
-                        </h5>
-                    </label>
-                    <Bullet
-                        title='% O/S'
-                        measure={osPercent}
-                        target={osPercent}              
-                    />
-                    <label style={{paddingLeft:140, paddingTop:30}}>
-                        <h5>Default Propencity: { numeral(defaultPropense).format('0.00')} %
-                        </h5>
-                    </label>
-                    <Bullet
-                        title='Deflt Propens'
-                        measure={defaultPropense}
-                        target={defaultPropense}              
-                    />
-                    <label style={{paddingLeft:140, paddingTop:30}}>
-                        <h5>Delinquency Recency: { numeral(delinqRecency).format('0.00')} %
-                        </h5>
-                    </label>
-                    <Bullet
-                        title='Delinq Recency'
-                        measure={delinqRecency}
-                        target={delinqRecency}              
-                    />  		
-				</div>
-			)  			
-	  	} else {
-	  		return (
-				<div></div>
-			) 
-	  	}
+  		return (
+			<div>
+                <label style={{paddingLeft:140}}>
+                    <h5>% Portfolio: { numeral(portfolioPercent).format('0.00')} %</h5>
+                </label>
+                <Bullet
+                    title='% Portfolio'
+                    measure={portfolioPercent}
+                    target={portfolioPercent}              
+                />
+                <label style={{paddingLeft:140, paddingTop:30}}>
+                    <h5>% O/S: { numeral(osPercent).format('0.00')} %
+                    </h5>
+                </label>
+                <Bullet
+                    title='% O/S'
+                    measure={osPercent}
+                    target={osPercent}              
+                />
+                <label style={{paddingLeft:140, paddingTop:30}}>
+                    <h5>Default Propencity: { numeral(defaultPropense).format('0.00')} %
+                    </h5>
+                </label>
+                <Bullet
+                    title='Deflt Propens'
+                    measure={defaultPropense}
+                    target={defaultPropense}              
+                />
+                <label style={{paddingLeft:140, paddingTop:30}}>
+                    <h5>Delinquency Recency: { numeral(delinqRecency).format('0.00')} %
+                    </h5>
+                </label>
+                <Bullet
+                    title='Delinq Recency'
+                    measure={delinqRecency}
+                    target={delinqRecency}              
+                />  		
+			</div>
+		)	
 	}
 }

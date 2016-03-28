@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import KPIs from './KPIs';
-
+import image from '../images/loading.gif';
 
 const mapStateToProps = (state) => {
     var totals;
@@ -23,6 +23,22 @@ var kpisBlockStyle = {
   paddingRight: '30'
 };
 
+const loadKPIs = (data, totals, filters) => {
+  if (!totals) {
+    return (
+        <div style={{padding: 145}} ><img src={image} /></div>
+    );
+  } else {
+    return (
+            <KPIs 
+              items={data}
+              totals={totals}
+              filters={filters}
+            />
+    );
+  }
+}
+
 
 const VisibleKPIs = ({
 	data,
@@ -31,11 +47,7 @@ const VisibleKPIs = ({
 }) => {
     return (
         <div style={kpisBlockStyle}>
-            <KPIs 
-      				items={data}
-              totals={totals}
-              filters={filters}
-      			/>
+          {loadKPIs(data, totals, filters)}
         </div>
     )
 };
