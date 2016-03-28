@@ -10,14 +10,14 @@ export default React.createClass({
         <nav className="navbar navbar-default">
           <div className="container-fluid">
             <div className="navbar-left">
-              <img src="/lendingClub.png"></img>
+              <img src="/zd-data-app-01/lendingClub.png"></img>
               Activity Dashboard
             </div>
             <div className="navbar-right ">
               <ul role="nav" className="nav nav-pills">
-              	<li ><NavLink to="/" onlyActiveOnIndex > KPI </NavLink></li>
-          			<li><NavLink to="/trend" > Trend </NavLink></li>
-          			<li><NavLink to="/detail" > Detail </NavLink></li>
+              	<li ><NavLink to="/zd-data-app-01" onlyActiveOnIndex > KPI </NavLink></li>
+          			<li><NavLink to="/zd-data-app-01/trend" > Trend </NavLink></li>
+          			<li><NavLink to="/zd-data-app-01/detail" > Detail </NavLink></li>
               </ul>
             </div>
           </div> 

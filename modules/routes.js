@@ -7,10 +7,10 @@ import Repo from './Repo'
 import Home from './Home'
 
 module.exports = (
-    <Route path="/" component={App}>
+    <Route path="/zd-data-app-01" component={App}>
   	  <IndexRoute component={Home}/>
-  	  <Route path="/kpi" component={Home}/>
-  	  <Route path="/trend" component={VisibleTrend}/>
-      <Route path="/detail" component={VisibleDetails}/>
+  	  <Route path="/zd-data-app-01/kpi" component={Home}/>
+  	  <Route path="/zd-data-app-01/trend" component={VisibleTrend}/>
+      <Route path="/zd-data-app-01/detail" component={VisibleDetails}/>
     </Route>
 )
