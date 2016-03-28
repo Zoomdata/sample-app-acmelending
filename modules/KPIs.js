@@ -5,18 +5,10 @@ var ReactHighcharts = require('react-highcharts');
 import { FilterStatuses } from '../actions'
 import Bullet from './Bullet';
 
-
-var canRender = false;
-
 export default class KPIs extends Component {
 
-    componentWillReceiveProps(nextProps) {
-		if (nextProps.totals) {
-			canRender = true;
-		}
-	}
-
 	render() {
+        console.log('KPIs - in render');
 		var items;
 		if (!this.props.items) {
 			items = [];
@@ -60,7 +52,7 @@ export default class KPIs extends Component {
 			};
 		}
 
-	  	if (canRender === true) {
+	  	if (this.props.totals) {
 	  		return (
 				<div>
                     <label style={{paddingLeft:140}}>
