@@ -8,7 +8,6 @@ import Bullet from './Bullet';
 export default class KPIs extends Component {
 
 	render() {
-        console.log('KPIs - in render');
 		var items;
 		if (!this.props.items) {
 			items = [];

@@ -192,9 +192,6 @@ export default class Pivot extends Component {
 	render(){
 		var columnDefs = this.createColDefs();
 
-		console.log('in Pivot render');
-
-
 	  	return (
 
 	        	<div    
