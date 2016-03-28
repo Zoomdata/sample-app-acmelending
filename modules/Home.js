@@ -5,8 +5,8 @@ import VisibleDonut  from './VisibleDonut';
 import VisibleKPIs  from './VisibleKPIs';
 
 var controlStyle = {
-  paddingLeft: '70',
-  paddingTop: '30'
+  padding: '30',
+
 };
 
 export default class Home extends Component {

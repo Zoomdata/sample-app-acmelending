@@ -71,7 +71,7 @@ export default class KPIs extends Component {
                     target={osPercent}              
                 />
                 <label style={{paddingLeft:140, paddingTop:30}}>
-                    <h5>Default Propencity: { numeral(defaultPropense).format('0.00')} %
+                    <h5>Default Propensity: { numeral(defaultPropense).format('0.00')} %
                     </h5>
                 </label>
                 <Bullet

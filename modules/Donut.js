@@ -114,6 +114,7 @@ export default class Donut extends Component {
 	}
 
 	render(){
+		console.log('in Donut render ' + Date.now());
 	  	return (
 			<div style={{height: this.props.height, width: this.props.width}} />
     	)

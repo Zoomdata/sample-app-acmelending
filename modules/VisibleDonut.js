@@ -29,19 +29,21 @@ const mapStateToProps = (state) => {
 
 const loadDonut = (data, onClick) => {
   var height = 500;
-  var width = height * 1.2; //golden ratio
+  var width = height;
   if (!data) {
     return (
         <div style={{padding: 145}} ><img src={image} /></div>
     );
   } else {
     return (
-        <Donut 
-          items={data}
-          width={width}
-          height={height}
-          onClick={onClick}
-        />
+        <div style={{margin:'auto', width:'80%'}}>
+          <Donut 
+            items={data}
+            width={width}
+            height={height}
+            onClick={onClick}
+          />
+        </div>
     );
   }
 }
@@ -55,6 +57,7 @@ const VisibleDonut = ({
 	data,
   onClick
 }) => {
+    console.log('VisibleDonut render ' + Date.now());
     return (
         <div>
           <div style={labelStyle}>

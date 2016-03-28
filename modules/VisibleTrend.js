@@ -5,7 +5,9 @@ import Trend  from './Trend';
 import LoanGradeDropDown  from './LoanGradeDropDown';
 import LoanStatusDropDown  from './LoanStatusDropDown';
 import EmploymentLength from './EmploymentLength';
+import EmpLengthChecks from './EmpLengthChecks';
 import _ from 'lodash/core';
+import image from '../images/loading.gif';
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -40,6 +42,23 @@ var controlStyle = {
   paddingTop: '30'
 };
 
+const loadTrend = (data, width, height, onClick) => {
+  if (!data) {
+    return (
+        <div style={{paddingTop: 50, paddingLeft: 200}} ><img src={image} /></div>
+    );
+  } else {
+    return (
+        <Trend 
+          items={data}
+          width={width}
+          height={height}
+          onClick={onClick}
+        />
+    );
+  }
+}
+
 const VisibleTrend = ({
 	data,
   grades,
@@ -72,13 +91,10 @@ const VisibleTrend = ({
             />
           </div>
           <div className='col-md-9'>
-            <div style={{padding:40}}/>
-            <Trend 
-              items={data}
-              width={width}
-              height={height}
-              onClick={onClick}
-            />
+          <div style={{padding:40}}/>
+
+            {loadTrend(data, width, height, onClick)}
+
           </div>
         </div>
       </div>
