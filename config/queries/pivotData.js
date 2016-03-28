@@ -24,16 +24,16 @@ export const queryConfig = {
             name: 'loan_status'
         },
         limit: 10
+      },
+      {
+        name: 'addr_state',
+        sort: {
+            dir: 'asc',
+            name: 'addr_state'
+        },
+        limit: 100
       }
       // ,
-      // {
-      //   name: 'addr_state',
-      //   sort: {
-      //       dir: 'asc',
-      //       name: 'addr_state'
-      //   },
-      //   limit: 100
-      // },
       // {
       //   name: 'emp_length',
       //   sort: {

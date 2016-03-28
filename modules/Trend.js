@@ -50,7 +50,8 @@ export default class Trend extends Component {
 		        trigger: 'axis'
 		    },
 		    legend: {
-		    	show: true
+		    	show: true,
+		    	data: ['Loan Amount','Total Payment']
 		    },
 		    toolbox: {
 		        show : false
@@ -84,15 +85,6 @@ export default class Trend extends Component {
 		                }
 		            }
 
-		        },
-		      	{
-		            type : 'value',
-		            scale: true,
-				    axisLabel: {
-		                formatter: function (v) {
-		                    return Math.round(v*100) + '%'
-		                }
-		            }
 		        }
 		    ],
 		    series : [

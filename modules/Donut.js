@@ -62,6 +62,7 @@ export default class Donut extends Component {
 		        {
 		            name:'Loan Grade',
 		            type:'pie',
+		            selectedMode: 'single',
 		            radius : ['50%', '80%'],
 		            itemStyle : {
 		                normal : {

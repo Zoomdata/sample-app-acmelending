@@ -1,23 +1,25 @@
-import styles from './GridContainer.css';
-
 import React, { Component } from 'react';
 import {AgGridReact} from 'ag-grid-react';
 import 'ag-grid-root/ag-grid.css';
 import 'ag-grid-root/theme-fresh.css';
 
 var numeral = require('numeral');
-var pageSize = 500;
-var allOfTheData;
+let pageSize = 100;;
+let allOfTheData;
 
 export default class Pivot extends Component {
 	onGridReady(params) {
         this.api = params.api;
-        console.log('onGridReady');
-        // gridBody.addEventListener('scroll', function() {
-        //     if (gridBody.scrollHeight - getHeight(gridBody) - gridBody.scrollTop < 200 && gridDetails.hasNextDetails && !gridDetails.loadingDetails) {
-        //         dispatch(changeGridDataQuery());
-        //     }
-        // });
+
+        this.setupData();
+    }
+
+    setupData() {
+    	if (!allOfTheData || allOfTheData.length === 0) {
+        	allOfTheData = this.obtainPivotItems(this.props);       	
+        }
+        this.createNewDatasource();
+        this.api.sizeColumnsToFit();
     }
 
     obtainPivotItems(props) {
@@ -32,7 +34,7 @@ export default class Pivot extends Component {
 			return {
 				grade: item.group[0],
 				loan_status: item.group[1],
-				// addr_state: item.group[2],
+				addr_state: item.group[2],
 				// emp_length: item.group[3],
 				// issue_d: item.group[4],
 				calc_o_s_principal: numeral(item.current.metrics.calc_o_s_principal.calc).format('0,0'),
@@ -49,15 +51,11 @@ export default class Pivot extends Component {
         if (!this.api) {
             return;
         }
-
-		console.log('in componentDidUpdate');
-		this.createNewDatasource();
-        this.api.sizeColumnsToFit();
+        this.setupData();
     }
 
 	createNewDatasource() {
 	    if (!allOfTheData) {
-	        // in case user selected 'onPageSizeChanged()' before the json was loaded
 	        return;
 	    }
 
@@ -74,7 +72,6 @@ export default class Pivot extends Component {
                 params.successCallback(rowsThisPage, lastRow);
 	        }
 	    };
-	    console.log(this.api);
 	    this.api.setDatasource(dataSource);
 	}
 
@@ -116,15 +113,15 @@ export default class Pivot extends Component {
                 suppressMenu: true,
                 cellStyle: leftAlignStyle
             },
-            // {
-            //     headerName: 'Lendee State',
-            //     field: 'addr_state',
-            //     width: 60,
-            //     suppressSorting: false,
-            //     suppressSizeToFit: true,
-            //     suppressMenu: true,
-            //     cellStyle: leftAlignStyle
-            // },
+            {
+                headerName: 'Lendee State',
+                field: 'addr_state',
+                width: 100,
+                suppressSorting: false,
+                suppressSizeToFit: true,
+                suppressMenu: true,
+                cellStyle: centerAlignStyle
+            },
             // {
             //     headerName: 'Emp Length',
             //     field: 'emp_length',
@@ -193,23 +190,16 @@ export default class Pivot extends Component {
     }
 
 	render(){
-
-        const gridGroupStyle = {
-            height: '100%'
-        };
-
 		var columnDefs = this.createColDefs();
 
-		console.log('in render');
-		allOfTheData = this.obtainPivotItems(this.props);
+		console.log('in Pivot render');
+
 
 	  	return (
-	  		<div
-                className={styles.root}
-            >
-	        	<div
-	                    className="ag-fresh"
-	                    style={gridGroupStyle}
+
+	        	<div    
+	                    className='ag-fresh'
+	                    style={{height: 650}}
 	            >
 			  		<AgGridReact 
 			  			rowData={allOfTheData}
@@ -221,10 +211,10 @@ export default class Pivot extends Component {
 	                    rowHeight='28'
 	                    suppressRowClickSelection='true'
 	                    suppressCellSelection='true'
-	                    // rowModelType='pagination'
+	                    rowModelType='pagination'
 		             />
 	             </div>
-             </div>
+
 
     	)
 	}
