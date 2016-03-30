@@ -1,3 +1,24 @@
 .active {
   color: green;
 }
+
+.checkbox {
+    position: relative;
+    display: block;
+    margin-top: 1px;
+    margin-bottom: 3px;
+}
+
+.checkbox label {
+    min-height: 20px;
+    padding-left: 20px;
+    margin-bottom: 0;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+
+
+.form-group {
+    margin-bottom: 1px;
+}
