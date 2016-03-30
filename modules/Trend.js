@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 var ReactDOM = require('react-dom');
 var echarts = require('echarts');
 var ecConfig=require('echarts');
-var dateFormat = require('dateformat');
+var moment = require('moment');
 var numeral = require('numeral');
 
 export default class Trend extends Component {
@@ -36,7 +36,9 @@ export default class Trend extends Component {
 		}
 
 		var xAxis = items.map(function(item) {
-			return dateFormat(new Date(item.group[0]), 'mm/dd/yyyy');
+			var m = moment(item.group[0],'YYYY-MM-DD HH:mm:ss');
+			var str = m.format('MM/DD/YYYY');
+			return str;
 		});
 		var yAxis1 = items.map(function(item) {
 			return item.current.metrics.loan_amnt.sum.toFixed(0);

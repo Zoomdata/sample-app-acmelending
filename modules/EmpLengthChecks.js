@@ -19,13 +19,13 @@ export default class EmpLengthChecks extends Component {
 		var listItems = lengthOptions.map(function(item, index) {
 			var active = (currentStatus.indexOf(item) > -1) ? true : false;
 			return (
-				<div className='form-group'>
-					<span key={index} className='checkbox'>
+				<div className='form-group' key={index} >
+					<span key={index} key={index} className='checkbox'>
 						<label key={index}>
 							<input
 								type='checkbox'	
 								checked={active} 						
-								onClick={this.props.onEmpLengthSelected}
+								onChange={this.props.onEmpLengthSelected}
 								key={index} 
 								id={item} 
 							/>
