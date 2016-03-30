@@ -12,8 +12,12 @@ import image from '../images/loading.gif';
 const mapDispatchToProps = (dispatch) => {
   return {
     onEmpLengthSelected: (event, href, eventKey) => {
-        dispatch(setTrendEmpLength(event.target.id));
-        dispatch(changeTrendFilter());
+        var eventObj = {
+            targetId: event.target.id,
+            selected: event.target.checked
+        }
+        dispatch(setTrendEmpLength(eventObj));
+        dispatch(changeTrendFilter()); 
     }, 
     onGradeSelected: (event) => {
       dispatch(setTrendLoanGrade(event.target.id));
@@ -39,7 +43,7 @@ const mapStateToProps = (state) => {
 
 var controlStyle = {
   paddingLeft: '70',
-  paddingTop: '30'
+  paddingTop: '20'
 };
 
 const loadTrend = (data, width, height, onClick) => {
@@ -73,30 +77,28 @@ const VisibleTrend = ({
     return (
       <div>
         <div className='row'>
-          <div className='col-md-3' style={controlStyle}>
-            <LoanGradeDropDown
-              items={grades}
-              onGradeSelected={onGradeSelected}
-              filters={filters}
-            />
-            <div style={{padding:10}}/>
-            <LoanStatusDropDown
-              onStatusSelected={onStatusSelected}
-              filters={filters}
-            />
-            <div style={{padding:10}}/>
-            <EmploymentLength
-              onEmpLengthSelected={onEmpLengthSelected}
-              filters={filters}
-            />
+            <div className='col-md-3' style={controlStyle}>
+                <LoanGradeDropDown
+                  items={grades}
+                  onGradeSelected={onGradeSelected}
+                  filters={filters}
+                />
+                <div style={{padding:10}}/>
+                <LoanStatusDropDown
+                  onStatusSelected={onStatusSelected}
+                  filters={filters}
+                />
+                <div style={{padding:10}}/>
+                <EmpLengthChecks
+                  onEmpLengthSelected={onEmpLengthSelected}
+                  filters={filters}
+                />
+            </div>
+            <div className='col-md-9'>
+                <div style={{padding:10}}/>
+                  {loadTrend(data, width, height, onClick)}
+                </div>
           </div>
-          <div className='col-md-9'>
-          <div style={{padding:40}}/>
-
-            {loadTrend(data, width, height, onClick)}
-
-          </div>
-        </div>
       </div>
     )
 };

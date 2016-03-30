@@ -49,10 +49,10 @@ function getThread(client, query) {
 }
 
 
-var makeFilter = function(path) {
+var makeSingleFilter = function(path) {
     return function(value) {
         var result = [];
-        if (value !== 'All' && value !== undefined) {
+        if (value !== undefined && value !== 'All') {
             result.push( {
               path: path,
               operation: 'IN',
@@ -63,9 +63,25 @@ var makeFilter = function(path) {
         return result;
     };
 }
-var trendGradeFilter = makeFilter('grade');
-var trendStatusFilter = makeFilter('loan_status');
-var trendEmpLengthFilter = makeFilter('emp_length');
+
+var makeMultiSelectFilter = function(path) {
+    return function(value) {
+        var result = [];
+        if (value !== undefined && value.length > 0) {
+            result.push( {
+              path: path,
+              operation: 'IN',
+              value: value,
+              "form": null
+            });
+        }
+        return result;
+    };
+}
+
+var trendGradeFilter = makeSingleFilter('grade');
+var trendStatusFilter = makeSingleFilter('loan_status');
+var trendEmpLengthFilter = makeMultiSelectFilter('emp_length');
 
 function* changeTrendQuery(getState) {
     while(true) {

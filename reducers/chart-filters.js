@@ -18,12 +18,30 @@ const chartFilters = (state = {filterStatus: FILTERS_RESET}, action) => {
             var obj = Object.assign({}, state, trendLoanStatus);
             return obj;
         case SET_TREND_EMP_LENGTH:
-            var trendEmpLength = {trendEmpLength: action.param};
+            var mergedEmpLength = mergeEmpLength(state.trendEmpLength, action.param);
+            var trendEmpLength = {trendEmpLength: mergedEmpLength};
             var obj = Object.assign({}, state, trendEmpLength);
             return obj;
         default:
             return state;
     }
+}
+
+const mergeEmpLength = (currArray, param)  => {
+    var currSelection = !currArray ? [] : currArray;
+    var newSelection = currSelection.slice();
+
+    var index = newSelection.indexOf(param.targetId);
+    if (param.selected) {
+        if (index === -1) {
+            newSelection.push(param.targetId);
+        }
+    } else {
+        if (index > -1) {
+            newSelection.splice(index, 1);
+        }
+    }
+    return newSelection;
 }
 
 export default chartFilters;

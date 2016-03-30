@@ -50,7 +50,7 @@ const loadDonut = (data, onClick) => {
 
 var labelStyle = {
   margin: 'auto',
-  width: '70%'
+  width: '30%'
 };
 
 const VisibleDonut = ({
@@ -61,7 +61,7 @@ const VisibleDonut = ({
     return (
         <div>
           <div style={labelStyle}>
-            <label><h4>Select a pie slice to explore associated KPIs</h4></label>
+            <label><h4>Loans by Grade</h4></label>
           </div>
           
           {loadDonut(data, onClick)}

@@ -4,16 +4,11 @@ import { connect } from 'react-redux';
 import VisibleDonut  from './VisibleDonut';
 import VisibleKPIs  from './VisibleKPIs';
 
-var controlStyle = {
-  padding: '30',
-
-};
-
 export default class Home extends Component {
 
 	render() {
 		return (
-			<div className="row" style={controlStyle}>
+			<div className="row" >
 				<div className="col-md-6">
 					<VisibleDonut/>
 				</div>			

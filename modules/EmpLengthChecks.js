@@ -5,30 +5,39 @@ let lengthOptions = ['< 1 year', '1 year', '2 years', '3 years', '4 years',
 					'5 years', '6 years', '7 years', '8 years', '9 years', '10+ years',
 					'n/a'];
 
-export default class EmploymentLength extends Component {
+export default class EmpLengthChecks extends Component {
 
 	render() {
 		var currentStatus;
 		// identifies if there is a selected item
 		if (!this.props.filters.trendEmpLength) {
-			currentStatus = 'All';
+			currentStatus = [];
 		} else {
 			currentStatus = this.props.filters.trendEmpLength;
 		}
 
 		var listItems = lengthOptions.map(function(item, index) {
-			var active = (item === currentStatus) ? true : false;
+			var active = (currentStatus.indexOf(item) > -1) ? true : false;
 			return (
-					<Input type='checkbox' 
-							label={item} 
-							key={index} id={item} 
-							checked={active}  
-							onClick={ this.props.onEmpLengthSelected  }
-					/>
-				)
+				<div className='form-group'>
+					<span key={index} className='checkbox'>
+						<label key={index}>
+							<input
+								type='checkbox'	
+								checked={active} 						
+								onClick={this.props.onEmpLengthSelected}
+								key={index} 
+								id={item} 
+							/>
+							{item}
+						</label>
+					</span>
+				</div>
+
+			)
 	    }.bind(this));
 
-		const wellStyles = {maxWidth: 200};
+		const wellStyles = {maxWidth: 170, marginBottom: 0};
 	  	return (
 	  		<div>
 	  			<div>

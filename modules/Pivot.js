@@ -196,7 +196,7 @@ export default class Pivot extends Component {
 
 	        	<div    
 	                    className='ag-fresh'
-	                    style={{height: 650}}
+	                    style={{height: 530}}
 	            >
 			  		<AgGridReact 
 			  			rowData={allOfTheData}

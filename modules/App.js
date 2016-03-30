@@ -16,8 +16,8 @@ export default React.createClass({
             </div>
             <div className="navbar-right ">
               <ul role="nav" className="nav nav-pills">
-              	<li ><NavLink to="/zd-data-app-01" onlyActiveOnIndex > KPI </NavLink></li>
-          			<li><NavLink to="/zd-data-app-01/trend" > Trend </NavLink></li>
+                <li><NavLink to="/zd-data-app-01/" > Trend </NavLink></li>
+              	<li ><NavLink to="/zd-data-app-01/kpi" onlyActiveOnIndex > KPI </NavLink></li>
           			<li><NavLink to="/zd-data-app-01/detail" > Detail </NavLink></li>
               </ul>
             </div>

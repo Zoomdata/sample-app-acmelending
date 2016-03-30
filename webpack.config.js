@@ -14,13 +14,17 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: ''
   },
-
-  // add this handful of plugins that optimize the build
-  // when we're in production
   plugins: process.env.NODE_ENV === 'production' ? [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false
+        }
+    })
   ] : [],
   externals: {
       "ZoomdataSDK": "ZoomdataSDK"
