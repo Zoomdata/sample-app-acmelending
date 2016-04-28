@@ -1,0 +1,45 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'zoomdata-client',
+1 verbose cli   '—save' ]
+2 info using npm@3.8.1
+3 info using node@v4.4.0
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData zoomdata-client
+8 silly fetchPackageMetaData —save
+9 silly fetchNamedPackageData zoomdata-client
+10 silly mapToRegistry name zoomdata-client
+11 silly mapToRegistry using default registry
+12 silly mapToRegistry registry https://registry.npmjs.org/
+13 silly mapToRegistry uri https://registry.npmjs.org/zoomdata-client
+14 silly fetchOtherPackageData —save
+15 silly cache add args [ '—save', null ]
+16 verbose cache add spec —save
+17 verbose request uri https://registry.npmjs.org/zoomdata-client
+18 verbose request no auth needed
+19 info attempt registry request try #1 at 5:19:37 PM
+20 verbose request id 1aad3b777e874a2c
+21 http request GET https://registry.npmjs.org/zoomdata-client
+22 verbose stack TypeError: The header content contains invalid characters
+22 verbose stack     at ClientRequest.OutgoingMessage.setHeader (_http_outgoing.js:351:13)
+22 verbose stack     at new ClientRequest (_http_client.js:79:14)
+22 verbose stack     at Object.exports.request (http.js:31:10)
+22 verbose stack     at Object.socket.once.exports.request (https.js:183:15)
+22 verbose stack     at Request.start (/usr/local/lib/node_modules/npm/node_modules/request/request.js:747:30)
+22 verbose stack     at Request.end (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1381:10)
+22 verbose stack     at end (/usr/local/lib/node_modules/npm/node_modules/request/request.js:575:14)
+22 verbose stack     at Immediate._onImmediate (/usr/local/lib/node_modules/npm/node_modules/request/request.js:589:7)
+22 verbose stack     at processImmediate [as _immediateCallback] (timers.js:383:17)
+23 verbose cwd /Users/jorgealarcon/projects/zd-data-app-01
+24 error Darwin 15.4.0
+25 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "zoomdata-client" "—save"
+26 error node v4.4.0
+27 error npm  v3.8.1
+28 error The header content contains invalid characters
+29 error If you need help, you may report this error at:
+29 error     <https://github.com/npm/npm/issues>
+30 verbose exit [ 1, true ]
