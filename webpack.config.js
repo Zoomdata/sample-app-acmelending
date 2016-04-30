@@ -26,9 +26,7 @@ module.exports = {
         }
     })
   ] : [],
-  externals: {
-      "ZoomdataSDK": "ZoomdataSDK"
-  },
+
   module: {
     loaders: [
       { 
@@ -54,9 +52,12 @@ module.exports = {
       ,   
       {
         test: /\.(svg|gif|png|jpg)$/,
-        loader: 'url-loader?limit=19000&name=images/[name]-[hash].[ext]',
+        loader: 'url-loader?limit=10000&name=images/[name]-[hash].[ext]',
         exclude: /node_modules/
       }
+    ],
+    noParse: [
+        /[\/\\]node_modules[\/\\]zoomdata-client[\/\\]distribute[\/\\]sdk[\/\\]2\.0[\/\\]zoomdata-client\.js$/
     ]
   }
 }

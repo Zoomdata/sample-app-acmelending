@@ -1,4 +1,4 @@
-import ZoomdataSDK from 'ZoomdataSDK';
+import ZoomdataSDK from 'zoomdata-client';
 
 var applicationConfig = {
 	secure: true,   
