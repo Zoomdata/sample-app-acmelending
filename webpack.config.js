@@ -50,10 +50,11 @@ module.exports = {
         test: /\.css$/,
         loader: 'style!css-loader',
         exclude: /node_modules/
-      },   
+      }
+      ,   
       {
         test: /\.(svg|gif|png|jpg)$/,
-        loader: 'url-loader?limit=10000&name=images/[name]-[hash].[ext]',
+        loader: 'url-loader?limit=19000&name=images/[name]-[hash].[ext]',
         exclude: /node_modules/
       }
     ]

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import NavLink from './NavLink'
 import Home from './Home'
-import image from '../images/lendingClub.png';
+import image from '../images/AcmeLoans-small.png';
 
 export default React.createClass({
   render() {
@@ -11,8 +11,10 @@ export default React.createClass({
         <nav className="navbar navbar-default">
           <div className="container-fluid">
             <div className="navbar-left">
-              <img src={image}></img>
-              Activity Dashboard
+              <div style={{paddingLeft: '15', paddingTop:'5'}}>
+                <img  src={image}></img>
+                <div style={{float:'right', paddingLeft: '30', paddingTop: '7', verticalAlign: 'middle', fontSize: '20'}}>Activity Dashboard</div>
+              </div>
             </div>
             <div className="navbar-right ">
               <ul role="nav" className="nav nav-pills">
