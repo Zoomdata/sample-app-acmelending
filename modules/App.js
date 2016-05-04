@@ -16,11 +16,11 @@ export default React.createClass({
                 <div style={{float:'right', paddingLeft: '30', paddingTop: '7', verticalAlign: 'middle', fontSize: '20'}}>Activity Dashboard</div>
               </div>
             </div>
-            <div className="navbar-right ">
+            <div className="navbar-right" style={{paddingTop:'5', paddingRight: '10'}}>
               <ul role="nav" className="nav nav-pills">
-                <li><NavLink to="/zd-data-app-01/" > Trend </NavLink></li>
-              	<li ><NavLink to="/zd-data-app-01/kpi" onlyActiveOnIndex > KPI </NavLink></li>
-          			<li><NavLink to="/zd-data-app-01/detail" > Detail </NavLink></li>
+                <li role="presentation"><NavLink to="/zd-data-app-01/" onlyActiveOnIndex > Trend </NavLink></li>
+              	<li role="presentation"><NavLink to="/zd-data-app-01/kpi" onlyActiveOnIndex > KPI </NavLink></li>
+          			<li role="presentation"><NavLink to="/zd-data-app-01/detail" onlyActiveOnIndex> Detail </NavLink></li>
               </ul>
             </div>
           </div> 

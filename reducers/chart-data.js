@@ -81,16 +81,6 @@ const data = (state = initialState, action) => {
             });
 
             return obj;
-        case actions.REQUEST_TREND_DATA:
-
-            var obj = Object.assign({}, state, { 
-                trendData: {
-                    source: action.source,
-                    isFetching: true
-                }
-            });
-
-            return obj;
         case actions.RECEIVE_TREND_DATA:
 
             var obj = Object.assign({}, state, {

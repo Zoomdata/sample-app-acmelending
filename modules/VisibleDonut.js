@@ -57,7 +57,6 @@ const VisibleDonut = ({
 	data,
   onClick
 }) => {
-    console.log('VisibleDonut render ' + Date.now());
     return (
         <div>
           <div style={labelStyle}>
