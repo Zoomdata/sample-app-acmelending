@@ -79,9 +79,13 @@ var makeMultiSelectFilter = function(path) {
     };
 }
 
-var trendGradeFilter = makeSingleFilter('grade');
-var trendStatusFilter = makeSingleFilter('loan_status');
-var trendEmpLengthFilter = makeMultiSelectFilter('emp_length');
+let GRADE_PATH = 'grade';
+let LOAN_STATUS_PATH = 'loan_status';
+let EMP_LENGTH_PATH = 'emp_length';
+
+var trendGradeFilter = makeSingleFilter(GRADE_PATH);
+var trendStatusFilter = makeSingleFilter(LOAN_STATUS_PATH);
+var trendEmpLengthFilter = makeMultiSelectFilter(EMP_LENGTH_PATH);
 
 function* changeTrendQuery(getState) {
     while(true) {
@@ -100,20 +104,29 @@ function* changeTrendQuery(getState) {
         var filteredQueryConfig = Object.assign({}, trendData.queryConfig, 
             { filters: filters});
 
-        yield fork(fetchTrendData, ZoomdataClient, trendData.source, filteredQueryConfig);
+        TrendDataQuery.filters.remove(GRADE_PATH);
+        TrendDataQuery.filters.remove(LOAN_STATUS_PATH);
+        TrendDataQuery.filters.remove(EMP_LENGTH_PATH);
+        TrendDataQuery.filters.add(filters);
+
+        yield fork(fetchTrendData, TrendDataThread);
     }
 }
 
 function* fetchTrendData(client, source, queryConfig) {
     trendQueryRunning = true;
 
-    const query = yield call(getQuery, client, source, queryConfig);
-    TrendDataQuery = query;
+    if (!TrendDataQuery) {
+        const query = yield call(getQuery, client, source, queryConfig);
+        TrendDataQuery = query;
+    }
 
     yield put(actions.requestTrendData(trendData.source));
 
-    const thread = yield call(getThread, client, TrendDataQuery);
-    TrendDataThread = thread;
+    if (!TrendDataThread) {
+        const thread = yield call(getThread, client, TrendDataQuery);
+        TrendDataThread = thread;
+    }
 
     while (trendQueryRunning) {
         const data = yield call(fetchDataApi, TrendDataThread, 'trend');
