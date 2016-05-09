@@ -8,9 +8,9 @@ let pageSize = 100;;
 let allOfTheData;
 
 export default class Pivot extends Component {
+
 	onGridReady(params) {
         this.api = params.api;
-
         this.setupData();
     }
 
@@ -19,7 +19,6 @@ export default class Pivot extends Component {
         	allOfTheData = this.obtainPivotItems(this.props);       	
         }
         this.createNewDatasource();
-        this.api.sizeColumnsToFit();
     }
 
     obtainPivotItems(props) {
@@ -45,6 +44,12 @@ export default class Pivot extends Component {
 		});
 
 		return pivotItems;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isFilterChanged) {
+            allOfTheData = undefined;
+        }
     }
 
     componentDidUpdate() {
@@ -229,6 +234,14 @@ export default class Pivot extends Component {
         this.columnDefs = this.createColDefs();
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.isFilterChanged) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 	render(){
 		var columnDefs = this.createColDefs();
 
@@ -249,10 +262,20 @@ export default class Pivot extends Component {
 	                    suppressRowClickSelection='true'
 	                    suppressCellSelection='true'
 	                    rowModelType='pagination'
+                        isScrollLag={this.isScrollLag.bind(this)}
 		             />
 	             </div>
 
 
     	)
 	}
+
+    isScrollLag() {
+        if( navigator.userAgent.toLowerCase().indexOf('chrome') > -1 ){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

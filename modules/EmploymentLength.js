@@ -32,15 +32,12 @@ export default class EmploymentLength extends Component {
 
 		const wellStyles = {maxWidth: 200};
 	  	return (
-	  		<div>
-	  			<div>
-	  				<label>Employment Length:</label>
-					<div className='well' style={wellStyles}>
-						{listItems}
-					</div>
-	  			</div>
-
-	  		</div>
+  			<div>
+  				<label>Employment Length</label>
+				<div className='well' style={wellStyles}>
+					{listItems}
+				</div>
+  			</div>
     	)
 	}
 

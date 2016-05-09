@@ -21,25 +21,25 @@ export default class LoanGradeDropDown extends Component {
 		labels.sort();
 		labels.unshift("All");
 
+		var itemSelected = this.props.filters[this.props.filterField];
 		var title;
 		// identifies if there is a selected item
-		if (!this.props.filters.trendLoanGrade) {
+		if (!itemSelected) {
 			title = 'All';
 		} else {
-			title = this.props.filters.trendLoanGrade;
+			title = itemSelected;
 		}
 
 		var listItems = labels.map(function(item, index) {
 	      return (
-	        <MenuItem key={index} id={item}>{item}
+	        <MenuItem key={index} eventKey={item} id={item}>{item}
 	        </MenuItem>
 	      )
 	    }.bind(this));
 
 	  	return (
-	  		<div>
 	  			<div>
-	  				<label>Loan Grade:</label>
+	  				<label>Loan Grade</label>
 	  				<ButtonToolbar>
 						<DropdownButton 
 							bsStyle='default' 
@@ -52,8 +52,6 @@ export default class LoanGradeDropDown extends Component {
 						</DropdownButton>
 					</ButtonToolbar>
 	  			</div>
-
-	  		</div>
     	)
 	}
 

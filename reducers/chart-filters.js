@@ -1,9 +1,10 @@
 import { SET_LOAN_GRADE, SET_TREND_LOAN_GRADE, 
-         SET_TREND_LOAN_STATUS, SET_TREND_EMP_LENGTH, 
-         FilterStatuses } from '../actions';
-const { FILTERS_RESET } = FilterStatuses;
+         SET_TREND_LOAN_STATUS, SET_TREND_EMP_LENGTH, SET_TABLE_LOAN_GRADE, 
+         SET_TABLE_LOAN_STATUS, FilterStatuses } from '../actions';
 
-const chartFilters = (state = {filterStatus: FILTERS_RESET}, action) => {
+let lastEnter = 0;
+
+const chartFilters = (state = {}, action) => {
     switch (action.type) {
         case SET_LOAN_GRADE:
             var grade = {loanGrade: action.param};
@@ -22,6 +23,14 @@ const chartFilters = (state = {filterStatus: FILTERS_RESET}, action) => {
             var trendEmpLength = {trendEmpLength: mergedEmpLength};
             var obj = Object.assign({}, state, trendEmpLength);
             return obj;
+        case SET_TABLE_LOAN_GRADE:
+            var tableGrade = {tableLoanGrade: action.param};
+            var obj = Object.assign({}, state, tableGrade);
+            return obj;
+        case SET_TABLE_LOAN_STATUS:
+            var tableLoanStatus = {tableLoanStatus: action.param};
+            var obj = Object.assign({}, state, tableLoanStatus);
+            return obj;    
         default:
             return state;
     }

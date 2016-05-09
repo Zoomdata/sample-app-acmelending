@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import VisibleDonut  from './VisibleDonut';
 import VisibleKPIs  from './VisibleKPIs';
 
-export default class Home extends Component {
+export default class VisibleDonutKPIs extends Component {
 
 	render() {
 		return (

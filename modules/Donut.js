@@ -2,16 +2,29 @@ import React, { Component } from 'react';
 var ReactDOM = require('react-dom');
 var echarts = require('echarts');
 
-export default class Donut extends Component {
+// export default class Donut extends Component {
 
-	createChart() {
+var Donut = React.createClass({
+
+	render: function() {
+	  	return React.DOM.div({
+            style: {height: this.props.height, width: this.props.width}
+        });
+	},
+
+
+	shouldComponentUpdate: function() {
+		return false;
+	},
+
+	createChart: function() {
 	    // Initialize after dom ready
 	    var domElement = ReactDOM.findDOMNode(this);
 	    this.chart = echarts.init(domElement);
 	    this.updateChart(this.props);
-  	}
+  	},
 
-  	updateChart(props) {
+  	updateChart: function(props) {
 		// give up quickly if props are empty.
 		if (!props) {
 			return null;
@@ -20,10 +33,9 @@ export default class Donut extends Component {
 		this.chart.setOption(newChartOptions);
 
 		this.chart.on('CLICK', props.onClick);
-	}
+	},
 
-
-	makeChartOptions(props) {
+	makeChartOptions: function(props) {
 
 		var items;
 		if (!props.items) {
@@ -91,35 +103,18 @@ export default class Donut extends Component {
 		};
 		
 		return option;
-	}
+	},
 
-	componentDidMount() {
+	componentDidMount: function() {
     	this.createChart();
-  	}
+  	},
 
-	componentWillUnmount() {
+	componentWillUnmount: function() {
 		this.chart.dispose();
 	}
 
-	componentDidUpdate() {
-		this.updateChart(this.props);
-	}
-
-	shouldComponentUpdate(nextProps, nextState) {
-		return true;
-	}
-
-	componentWillReceiveProps(nextProps) {
-		this.updateChart(nextProps);
-	}
-
-	render(){
-	  	return (
-			<div style={{height: this.props.height, width: this.props.width}} />
-    	)
-	}
-
 }
+);
 
-
+module.exports = Donut;
 

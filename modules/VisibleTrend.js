@@ -20,11 +20,11 @@ const mapDispatchToProps = (dispatch) => {
         dispatch(changeTrendFilter()); 
     }, 
     onGradeSelected: (event) => {
-      dispatch(setTrendLoanGrade(event.target.id));
+      dispatch(setTrendLoanGrade(event));
       dispatch(changeTrendFilter());
     },
     onStatusSelected: (event) => {
-      dispatch(setTrendLoanStatus(event.target.id));
+      dispatch(setTrendLoanStatus(event));
       dispatch(changeTrendFilter());
     },
     onClick: (param) => {
@@ -82,11 +82,13 @@ const VisibleTrend = ({
                   items={grades}
                   onGradeSelected={onGradeSelected}
                   filters={filters}
+                  filterField='trendLoanGrade'
                 />
                 <div style={{padding:10}}/>
                 <LoanStatusDropDown
                   onStatusSelected={onStatusSelected}
                   filters={filters}
+                  filterField='trendLoanStatus'
                 />
                 <div style={{padding:10}}/>
                 <EmpLengthChecks

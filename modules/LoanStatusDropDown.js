@@ -7,39 +7,37 @@ let loanStatuses = ['All', 'Chared Off', 'Current', 'Default', 'Fully Paid', 'In
 export default class LoanStatusDropDown extends Component {
 
 	render() {
+		var itemSelected = this.props.filters[this.props.filterField];
 		var currentStatus;
 		// identifies if there is a selected item
-		if (!this.props.filters.trendLoanStatus) {
+		if (!itemSelected) {
 			currentStatus = 'All';
 		} else {
-			currentStatus = this.props.filters.trendLoanStatus;
+			currentStatus = itemSelected;
 		}
 
 		var listItems = loanStatuses.map(function(item, index) {
 	      return (
-	        <MenuItem key={index} id={item}>{item}
+	        <MenuItem key={index} eventKey={item} id={item}>{item}
 	        </MenuItem>
 	      )
 	    }.bind(this));
 
 	  	return (
-	  		<div>
-	  			<div>
-	  				<label>Loan Status:</label>
-	  				<ButtonToolbar>
-						<DropdownButton 
-							bsStyle='default'
-							title={currentStatus} 
-							key='1' 
-							id='loan grade'
-							onSelect={ this.props.onStatusSelected }
-						>
-							{listItems}
-						</DropdownButton>
-					</ButtonToolbar>
-	  			</div>
-
-	  		</div>
+  			<div>
+  				<label>Loan Status</label>
+  				<ButtonToolbar>
+					<DropdownButton 
+						bsStyle='default'
+						title={currentStatus} 
+						key='1' 
+						id='loan grade'
+						onSelect={ this.props.onStatusSelected }
+					>
+						{listItems}
+					</DropdownButton>
+				</ButtonToolbar>
+  			</div>
     	)
 	}
 

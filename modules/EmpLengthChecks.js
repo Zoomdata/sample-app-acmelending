@@ -39,16 +39,12 @@ export default class EmpLengthChecks extends Component {
 
 		const wellStyles = {maxWidth: 170, marginBottom: 0};
 	  	return (
-	  		<div>
-	  			<div>
-	  				<label>Employment Length:</label>
-					<div className='well' style={wellStyles}>
-						{listItems}
-					</div>
-	  			</div>
-
-	  		</div>
+  			<div>
+  				<label>Employment Length</label>
+				<div className='well' style={wellStyles}>
+					{listItems}
+				</div>
+  			</div>
     	)
 	}
-
 }

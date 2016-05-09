@@ -2,7 +2,6 @@
 import 'babel-polyfill';
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 
 import { createStore, applyMiddleware, compose } from 'redux';
 import sagaMiddleware from 'redux-saga';
@@ -12,7 +11,7 @@ import { Provider } from 'react-redux';
 import rootSaga from './sagas';
 import {responsiveStoreEnhancer} from 'redux-responsive';
 
-import routes from './modules/routes'
+import App from './modules/App';
 
 const createStoreWithMiddleware = compose(
     responsiveStoreEnhancer,
@@ -32,7 +31,7 @@ const root = document.getElementById('app');
 
 render(
 	<Provider store={store}>
-        <Router routes={routes} history={browserHistory}/>
+        <App/>
     </Provider>,
   	root
 )

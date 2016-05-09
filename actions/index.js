@@ -14,6 +14,8 @@ export const SET_TREND_LOAN_GRADE = 'SET_TREND_LOAN_GRADE';
 export const SET_TREND_LOAN_STATUS = 'SET_TREND_LOAN_STATUS';
 export const SET_TREND_EMP_LENGTH = 'SET_TREND_EMP_LENGTH';
 export const CHANGE_TREND_FILTER = 'CHANGE_TREND_FILTER';
+export const SET_TABLE_LOAN_GRADE = 'SET_TABLE_LOAN_GRADE';
+export const SET_TABLE_LOAN_STATUS = 'SET_TABLE_LOAN_STATUS';
 
 export function requestGradeData(source) {
     return {
@@ -85,11 +87,6 @@ export function receivePivotData(data) {
     }
 }
 
-export const FilterStatuses = {
-    FILTERS_APPLIED: 'FILTERS_APPLIED',
-    FILTERS_RESET: 'FILTERS_RESET'
-}
-
 export function setLoanGrade(param) {
 	return {
 		type: SET_LOAN_GRADE,
@@ -121,5 +118,19 @@ export function setTrendEmpLength(param) {
 export function changeTrendFilter() {
     return {
         type: CHANGE_TREND_FILTER
+    }
+}
+
+export function setTableLoanGrade(param) {
+    return {
+        type: SET_TABLE_LOAN_GRADE,
+        param
+    }
+}
+
+export function setTableLoanStatus(param) {
+    return {
+        type: SET_TABLE_LOAN_STATUS,
+        param
     }
 }
