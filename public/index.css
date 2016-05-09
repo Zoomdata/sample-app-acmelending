@@ -20,15 +20,3 @@
 .nav-pills > li {
   float: left;
 }
-.nav-pills > li > a {
-  border-radius: 4px;
-}
-.nav-pills > li + li {
-  margin-left: 2px;
-}
-.nav-pills > li > a.active,
-.nav-pills > li> a:hover.active ,
-.nav-pills > li > a:focus.active {
-  color: #fff;
-  background-color: #337ab7;
-}
