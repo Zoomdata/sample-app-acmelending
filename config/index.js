@@ -1,6 +1,6 @@
 import ZoomdataSDK from 'zoomdata-client';
 
-var production = false;
+var production = true;
 
 var redirect = {
 	dev_uri: "http://localhost:8090/zd-data-app-01",
@@ -26,7 +26,7 @@ var devCredentialsConfig = {
 }
 
 var prodCredentialsConfig = {
-  	key: "5731c5ebe4b0ef6318f81340"
+  	key: "5731f2afe4b0ef63190d163c"
 }
 
 export function obtainRedirect() {
