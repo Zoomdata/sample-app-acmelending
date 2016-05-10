@@ -1,17 +1,29 @@
 import React, { Component } from 'react';
 var ReactDOM = require('react-dom');
 var echarts = require('echarts');
+import { WindowResizeListener } from 'react-window-resize-listener'
 
-// export default class Donut extends Component {
+var domElement;
 
 var Donut = React.createClass({
 
-	render: function() {
-	  	return React.DOM.div({
-            style: {height: this.props.height, width: this.props.width}
-        });
+	render(){
+		var windowWidth = this.obtainWidth(window.innerWidth)
+		var windowHeight = this.obtainHeight(window.innerWidth);
+	  	return (
+			<div style={{height: windowHeight, width: windowWidth}}>
+			    <WindowResizeListener onResize={windowSize => {
+			    	if (domElement !== undefined) {
+			    		var width = this.obtainWidth(windowSize.windowWidth);
+			    		var height = this.obtainHeight(windowSize.windowWidth);
+				    	domElement.style.width = width + 'px';
+				    	domElement.style.height = height + 'px';
+				    	this.chart.resize();			    		
+			    	}
+			    }}/>
+			</div>
+    	)
 	},
-
 
 	shouldComponentUpdate: function() {
 		return false;
@@ -19,7 +31,7 @@ var Donut = React.createClass({
 
 	createChart: function() {
 	    // Initialize after dom ready
-	    var domElement = ReactDOM.findDOMNode(this);
+	    domElement = ReactDOM.findDOMNode(this);
 	    this.chart = echarts.init(domElement);
 	    this.updateChart(this.props);
   	},
@@ -109,10 +121,23 @@ var Donut = React.createClass({
     	this.createChart();
   	},
 
+	componentWillMount() {
+    	WindowResizeListener.DEBOUNCE_TIME = 10;	
+	},
+
 	componentWillUnmount: function() {
 		this.chart.dispose();
-	}
+	},
 
+	obtainWidth(windowWidth) {
+		var width = windowWidth-this.props.widthMargin;
+
+		return width < 318 ? 318 : width;
+	},
+
+	obtainHeight(windowWidth) {
+		return this.obtainWidth(windowWidth) / this.props.heightRatio;
+	}
 }
 );
 

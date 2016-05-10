@@ -94,7 +94,7 @@ const VisibleDetails = ({
 }) => {
     return (
         <div className='row'>
-          <div className='col-md-2' style={{paddingLeft: '40'}}>
+          <div className='col-xs-2' style={{paddingLeft: '40'}}>
             <LoanGradeDropDown
               items={grades}
               onGradeSelected={onGradeSelected}
@@ -108,7 +108,7 @@ const VisibleDetails = ({
               filterField='tableLoanStatus'
             />
           </div>
-          <div className='col-md-10'>
+          <div className='col-xs-10'>
               {loadTable(data)}
           </div>
         </div>

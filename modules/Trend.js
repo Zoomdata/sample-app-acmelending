@@ -6,11 +6,15 @@ var ecConfig=require('echarts');
 var moment = require('moment');
 var numeral = require('numeral');
 
+import { WindowResizeListener } from 'react-window-resize-listener'
+
+var domElement;
+
 export default class Trend extends Component {
 
 	createChart() {
 	    // Initialize after dom ready
-	    var domElement = ReactDOM.findDOMNode(this);
+	    domElement = ReactDOM.findDOMNode(this);
 	    this.chart = echarts.init(domElement);
 	    this.updateChart(this.props);
   	}
@@ -106,8 +110,13 @@ export default class Trend extends Component {
 		return option;
 	}
 
+	componentWillMount() {
+    	WindowResizeListener.DEBOUNCE_TIME = 10;	
+	}
+
 	componentDidMount() {
     	this.createChart();
+
   	}
 
 	componentWillUnmount() {
@@ -126,9 +135,32 @@ export default class Trend extends Component {
 		this.updateChart(nextProps);
 	}
 
+	obtainWidth(windowWidth) {
+		var width = windowWidth-this.props.widthMargin;
+
+		return width < 786 ? 786 : width;
+	}
+
+	obtainHeight(windowWidth) {
+		return this.obtainWidth(windowWidth) / this.props.heightRatio;
+	}
+
 	render(){
+		var windowWidth = this.obtainWidth(window.innerWidth)
+		var windowHeight = this.obtainHeight(window.innerWidth);
 	  	return (
-			<div style={{height: this.props.height, width: this.props.width}} />
+			<div style={{height: windowHeight, width: windowWidth}} >
+			    <WindowResizeListener onResize={windowSize => {
+			    	if (domElement !== undefined) {
+			    		var width = this.obtainWidth(windowSize.windowWidth);
+			    		var height = this.obtainHeight(windowSize.windowWidth);
+				    	domElement.style.width = width + 'px';
+				    	domElement.style.height = height + 'px';
+				    	
+				    	this.chart.resize();			    		
+			    	}
+			    }}/>
+			</div>
     	)
 	}
 

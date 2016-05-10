@@ -43,20 +43,24 @@ const mapStateToProps = (state) => {
 
 var controlStyle = {
   paddingLeft: '70',
-  paddingTop: '20'
+  paddingTop: '20',
+  paddingRight: '40',
+  minWidth: '257'
 };
 
-const loadTrend = (data, width, height, onClick) => {
+const loadTrend = (data, onClick) => {
   if (!data) {
     return (
         <div style={{paddingTop: 50, paddingLeft: 200}} ><img src={image} /></div>
     );
   } else {
+    var widthMargin = 380;
+    var heightRatio = 1.6;
     return (
         <Trend 
           items={data}
-          width={width}
-          height={height}
+          widthMargin={widthMargin}
+          heightRatio={heightRatio}
           onClick={onClick}
         />
     );
@@ -72,12 +76,10 @@ const VisibleTrend = ({
   onStatusSelected,
   onEmpLengthSelected
 }) => {
-	var height = 500;
-	var width = height * 1.6; //golden ratio
     return (
       <div>
         <div className='row'>
-            <div className='col-md-3' style={controlStyle}>
+            <div className='col-xs-3' style={controlStyle}>
                 <LoanGradeDropDown
                   items={grades}
                   onGradeSelected={onGradeSelected}
@@ -96,9 +98,9 @@ const VisibleTrend = ({
                   filters={filters}
                 />
             </div>
-            <div className='col-md-9'>
+            <div className='col-xs-9'>
                 <div style={{padding:10}}/>
-                  {loadTrend(data, width, height, onClick)}
+                  {loadTrend(data, onClick)}
                 </div>
           </div>
       </div>

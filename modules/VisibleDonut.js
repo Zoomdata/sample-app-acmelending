@@ -28,21 +28,24 @@ const mapStateToProps = (state) => {
 };
 
 const loadDonut = (data, onClick) => {
-  var height = 500;
-  var width = height;
   if (!data) {
     return (
         <div style={{padding: 145}} ><img src={image} /></div>
     );
   } else {
+    var widthMargin = 750;
+    var heightRatio = 1;
     return (
-        <div style={{margin:'auto', width:'80%'}}>
-          <Donut 
-            items={data}
-            width={width}
-            height={height}
-            onClick={onClick}
-          />
+        <div className='row' style={{margin:'auto', autowidth:'80%'}}>
+          <div className='col-md-12' style={{paddingLeft: 100}}>
+            <div><h4 style={{textAlign: 'center'}}>Loans by Grade</h4></div>
+            <Donut 
+              items={data}
+              widthMargin={widthMargin}
+              heightRatio={heightRatio}
+              onClick={onClick}
+            />
+          </div>
         </div>
     );
   }
@@ -50,7 +53,7 @@ const loadDonut = (data, onClick) => {
 
 var labelStyle = {
   margin: 'auto',
-  width: '30%'
+  width: '300'
 };
 
 const VisibleDonut = ({
@@ -58,13 +61,8 @@ const VisibleDonut = ({
   onClick
 }) => {
     return (
-        <div>
-          <div style={labelStyle}>
-            <label><h4>Loans by Grade</h4></label>
-          </div>
-          
+        <div >          
           {loadDonut(data, onClick)}
-
         </div>
     )
 };
