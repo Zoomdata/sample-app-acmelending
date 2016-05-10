@@ -5,7 +5,7 @@ import * as kpiData from '../config/queries/kpiData';
 import * as kpiTotals from '../config/queries/kpiTotals';
 import * as pivotData from '../config/queries/pivotData';
 import * as trendData from '../config/queries/trendData';
-import { createClient } from '../config';
+import { createClient, obtainRedirect } from '../config';
 
 let queryData = [];
 let gradeQueryRunning, kpiQueryRunning, kpiTotalQueryRunning, trendQueryRunning, pivotQueryRunning;
