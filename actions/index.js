@@ -9,6 +9,7 @@ export const RECEIVE_PIVOT_DATA = 'RECEIVE_PIVOT_DATA';
 
 export const SET_LOAN_GRADE = 'SET_LOAN_GRADE';
 export const REQUEST_TREND_DATA = 'REQUEST_TREND_DATA';
+export const REQUEST_TREND_DATA_FAILED = 'REQUEST_TREND_DATA_FAILED';
 export const RECEIVE_TREND_DATA = 'RECEIVE_TREND_DATA';
 export const SET_TREND_LOAN_GRADE = 'SET_TREND_LOAN_GRADE';
 export const SET_TREND_LOAN_STATUS = 'SET_TREND_LOAN_STATUS';
@@ -63,6 +64,13 @@ export function requestTrendData(source) {
 	return {
         type: REQUEST_TREND_DATA,
         source
+    }
+}
+
+export function requestTrendDataFailed(error) {
+    return {
+        type: REQUEST_TREND_DATA_FAILED,
+        error
     }
 }
 

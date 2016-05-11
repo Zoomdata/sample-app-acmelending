@@ -5,7 +5,7 @@ import * as kpiData from '../config/queries/kpiData';
 import * as kpiTotals from '../config/queries/kpiTotals';
 import * as pivotData from '../config/queries/pivotData';
 import * as trendData from '../config/queries/trendData';
-import { createClient, obtainRedirect } from '../config';
+import { createClient } from '../config';
 
 let queryData = [];
 let gradeQueryRunning, kpiQueryRunning, kpiTotalQueryRunning, trendQueryRunning, pivotQueryRunning;
@@ -129,10 +129,15 @@ function* fetchTrendData(client, source, queryConfig) {
     }
 
     while (trendQueryRunning) {
-        const data = yield call(fetchDataApi, TrendDataThread, 'trend');
+        try {
+            const data = yield call(fetchDataApi, TrendDataThread, 'trend');
 
-        if (trendQueryRunning) {
-            yield put(actions.receiveTrendData(data));
+            if (trendQueryRunning) {
+                yield put(actions.receiveTrendData(data));
+            }
+        }
+        catch(error) {
+            yield put(actions.requestTrendDataFailed(error));
         }
     }
 }

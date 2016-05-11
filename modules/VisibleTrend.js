@@ -35,16 +35,16 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
     return {
-        data: state.chartData.trendData.data,
-        grades: state.chartData.gradeData.data,
+        trendData: state.chartData.trendData,
+        gradeData: state.chartData.gradeData,
         filters: state.chartFilters
     }
 };
 
 var controlStyle = {
-  paddingLeft: '70',
   paddingTop: '20',
   paddingRight: '40',
+  paddingLeft: '70',
   minWidth: '257'
 };
 
@@ -67,9 +67,23 @@ const loadTrend = (data, onClick) => {
   }
 }
 
+const renderFilterLoading = (trendData) => {
+  if (trendData.data && trendData.isFetching) {
+    return (
+      <div style={{paddingTop: 20}}>
+        <img style={{width:150, height:100}} src={image} />
+      </div>
+    );
+  } else {
+    return (
+      <div style={{paddingTop: 20}}></div>
+    );    
+  }
+}
+
 const VisibleTrend = ({
-	data,
-  grades,
+	trendData,
+  gradeData,
   filters,
   onClick,
   onGradeSelected,
@@ -81,7 +95,7 @@ const VisibleTrend = ({
         <div className='row'>
             <div className='col-xs-3' style={controlStyle}>
                 <LoanGradeDropDown
-                  items={grades}
+                  items={gradeData.data}
                   onGradeSelected={onGradeSelected}
                   filters={filters}
                   filterField='trendLoanGrade'
@@ -97,10 +111,11 @@ const VisibleTrend = ({
                   onEmpLengthSelected={onEmpLengthSelected}
                   filters={filters}
                 />
+                {renderFilterLoading(trendData)}
             </div>
             <div className='col-xs-9'>
                 <div style={{padding:10}}/>
-                  {loadTrend(data, onClick)}
+                  {loadTrend(trendData.data, onClick)}
                 </div>
           </div>
       </div>

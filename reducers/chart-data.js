@@ -1,4 +1,5 @@
 import * as actions from '../actions';
+import { checkFailReason } from '../config';
 
 const initialState = {
     gradeData: {
@@ -79,6 +80,22 @@ const data = (state = initialState, action) => {
                     data: action.data
                 }
             });
+
+            return obj;
+        case actions.REQUEST_TREND_DATA:
+            var data = state.trendData.data;
+            var obj = Object.assign({}, state, { 
+                trendData: {
+                    source: action.source,
+                    isFetching: true,
+                    data: data
+                }
+            });
+
+            return obj;
+        case actions.REQUEST_TREND_DATA_FAILED:
+            var obj = state;
+            checkFailReason(action.error);
 
             return obj;
         case actions.RECEIVE_TREND_DATA:
