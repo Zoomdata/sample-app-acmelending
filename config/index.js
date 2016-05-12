@@ -57,7 +57,6 @@ export function checkFailReason(reason) {
 	    redirect = true;
 	  }
 	}
-	console.log('redirect is ' + redirect);
 	if (redirect) {
 	  window.location.href= obtainRedirect();  
 	}

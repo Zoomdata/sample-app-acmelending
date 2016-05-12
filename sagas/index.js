@@ -47,8 +47,6 @@ function fetchDataApi(thread, group) {
                 reject(error);
             });
         } catch (error) {
-            console.log('CATCHING ERROR inside fetchDataApi');
-            console.log(error);
             reject(error);
         }
     });
@@ -152,8 +150,6 @@ function* fetchTrendData(client, source, queryConfig) {
             }
         }
     } catch (error) {
-        console.log('CATCHING ERROR ');
-        console.log(error);
         yield put(actions.requestTrendDataFailed(error));
     }
 }
