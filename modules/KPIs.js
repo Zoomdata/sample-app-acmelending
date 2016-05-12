@@ -5,6 +5,11 @@ var ReactHighcharts = require('react-highcharts');
 import { FilterStatuses } from '../actions'
 import Bullet from './Bullet';
 
+/**
+ * KPIs is a react component that renders the KPI section next to the Donut visualization. 
+ * This component uses the Bullet component to render each KPI.  A bullet component is 
+ * essentially a HighChart bar.
+ */
 export default class KPIs extends Component {
 
 	render() {

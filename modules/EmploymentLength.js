@@ -5,6 +5,10 @@ let lengthOptions = ['All', '< 1 year', '1 year', '2 years', '3 years', '4 years
 					'5 years', '6 years', '7 years', '8 years', '9 years', '10+ years',
 					'n/a'];
 
+/**
+ * EmploymentLength is a react component that renders the Employee Length buttons as an 
+ * alternative to checkboxes used by the EmpLengthChecks component.
+ */
 export default class EmploymentLength extends Component {
 
 	render() {
@@ -17,17 +21,17 @@ export default class EmploymentLength extends Component {
 		}
 
 		var listItems = lengthOptions.map(function(item, index) {
-		var active = (item === currentStatus) ? true : false;
-		return (
-				<Button bsSize='xsmall'
-						bsStyle={active ? 'primary' : 'default'}
-						key={index} id={item} 
-						active={active}
-						onClick={ this.props.onEmpLengthSelected  } block
-				>
-					{item}
-				</Button>
-			)
+			var active = (item === currentStatus) ? true : false;
+			return (
+					<Button bsSize='xsmall'
+							bsStyle={active ? 'primary' : 'default'}
+							key={index} id={item} 
+							active={active}
+							onClick={ this.props.onEmpLengthSelected  } block
+					>
+						{item}
+					</Button>
+				)
 	    }.bind(this));
 
 		const wellStyles = {maxWidth: 200};

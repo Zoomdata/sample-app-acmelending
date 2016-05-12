@@ -7,6 +7,13 @@ import VisibleTrend from './VisibleTrend';
 import VisibleDetails from './VisibleDetails';
 import VisibleDonutKPIs from './VisibleDonutKPIs';
 
+/**
+ * Entry point of the application.  It places the main components of the application in a tab page layout.  
+ * The main components of the application are:  
+ * VisibleTrend
+ * VisibleDonutKPIs
+ * VisibleDetails
+ */
 export default React.createClass({
   render() {
     return (

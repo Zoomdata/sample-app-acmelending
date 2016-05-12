@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 var numeral = require('numeral');
 var ReactHighcharts = require('react-highcharts');
 
-
+/**
+ * Bullet is a react component that renders a single bar with the value of the KPI passed. 
+ * This component uses the ReactHighcharts component to render the bar.
+ */
 export default class Bullet extends Component {
 
     configuration() {

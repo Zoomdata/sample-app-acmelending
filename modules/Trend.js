@@ -10,8 +10,16 @@ import { WindowResizeListener } from 'react-window-resize-listener'
 
 var domElement;
 
+/**
+ * Trend is a react component that renders a trend visualization by integrating
+ * ECharts. 
+ */
 export default class Trend extends Component {
 
+	/**
+	 * Obtains the DIV element rendered inthe render() function and initializes
+	 * ECharts with it.
+	 */
 	createChart() {
 	    // Initialize after dom ready
 	    domElement = ReactDOM.findDOMNode(this);
@@ -114,6 +122,10 @@ export default class Trend extends Component {
     	WindowResizeListener.DEBOUNCE_TIME = 10;	
 	}
 
+	/**
+	 * To integrate ECharts, it creates the chart after this react component is mounted and its DIV
+	 * exists in the DOM.
+	 */
 	componentDidMount() {
     	this.createChart();
 
@@ -145,6 +157,12 @@ export default class Trend extends Component {
 		return this.obtainWidth(windowWidth) / this.props.heightRatio;
 	}
 
+	/**
+	 * Renders a div which will be used to render the chart after this react component is 
+	 * mounted.  See componentDidMount() component life cycle method.  This method also 
+	 * contains the WindowResizeListener component to handle window resize events which should
+	 * resize the trend visualization.
+	 */
 	render(){
 		var windowWidth = this.obtainWidth(window.innerWidth)
 		var windowHeight = this.obtainHeight(window.innerWidth);

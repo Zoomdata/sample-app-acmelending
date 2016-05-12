@@ -2,7 +2,10 @@ import { SET_LOAN_GRADE, SET_TREND_LOAN_GRADE,
          SET_TREND_LOAN_STATUS, SET_TREND_EMP_LENGTH, SET_TABLE_LOAN_GRADE, 
          SET_TABLE_LOAN_STATUS, FilterStatuses } from '../actions';
 
-let lastEnter = 0;
+/**
+ * Specifies how the application state changes in response of user "filter" actions.  These
+ * user actions are triggered from the application React components.
+ */
 
 const chartFilters = (state = {}, action) => {
     switch (action.type) {

@@ -5,6 +5,10 @@ let lengthOptions = ['< 1 year', '1 year', '2 years', '3 years', '4 years',
 					'5 years', '6 years', '7 years', '8 years', '9 years', '10+ years',
 					'n/a'];
 
+/**
+ * EmpLengthChecks is a react component that renders the Employee Length checkboxes by using the
+ * input bootstrap component.  EmpLengthChecks is used by VisibleTrend.
+ */
 export default class EmpLengthChecks extends Component {
 
 	render() {

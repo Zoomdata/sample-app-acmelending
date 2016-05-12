@@ -7,34 +7,51 @@ import * as pivotData from '../config/queries/pivotData';
 import * as trendData from '../config/queries/trendData';
 import { createClient } from '../config';
 
+/**
+ * Orchestrates the async functions of the application.  See the root() method where 
+ * components are executed.
+ */
+
 let queryData = [];
 let gradeQueryRunning, kpiQueryRunning, kpiTotalQueryRunning, trendQueryRunning, pivotQueryRunning;
 
+/**
+ * fetchDataApi uses the Zoomdata SDK thread object to retrieve the query results.  The 
+ * thread:notDirtyData event occurs when data is fully sharpen (e.g. results are complete).
+ */
 function fetchDataApi(thread, group) {
     var queryGroup = group;
     return new Promise( function(resolve, reject) {
-        thread.on('thread:message', function(data) {
-            queryData = data;
-            resolve(queryData);
-        });
-        thread.on('thread:notDirtyData', function() {
-            if (queryGroup === 'grade') {
-                gradeQueryRunning = false;
-            } else if (queryGroup === 'kpi') {
-                kpiQueryRunning = false;
-            } else if (queryGroup === 'kpitotals') {
-                kpiTotalQueryRunning = false;
-            } else if (queryGroup === 'trend') {
-                trendQueryRunning = false;
-            } else if (queryGroup === 'pivot') {
-                pivotQueryRunning = false;
-            }
-            resolve(queryData);
-        });
-        thread.on('thread:exeption', function(error) {
+        try {
+            thread.on('thread:message', function(data) {
+                queryData = data;
+                resolve(queryData);
+            });
+
+            thread.on('thread:notDirtyData', function() {
+                if (queryGroup === 'grade') {
+                    gradeQueryRunning = false;
+                } else if (queryGroup === 'kpi') {
+                    kpiQueryRunning = false;
+                } else if (queryGroup === 'kpitotals') {
+                    kpiTotalQueryRunning = false;
+                } else if (queryGroup === 'trend') {
+                    trendQueryRunning = false;
+                } else if (queryGroup === 'pivot') {
+                    pivotQueryRunning = false;
+                }
+                resolve(queryData);
+            });
+
+            thread.on('thread:exeption', function(error) {
+                reject(error);
+            });
+        } catch (error) {
+            console.log('CATCHING ERROR inside fetchDataApi');
+            console.log(error);
             reject(error);
-        });
-    })
+        }
+    });
 }
 
 function getQuery(client, source, queryConfig) {
@@ -115,30 +132,29 @@ function* changeTrendQuery(getState) {
 
 function* fetchTrendData(client, source, queryConfig) {
     trendQueryRunning = true;
+    try {
+        if (!TrendDataQuery) {
+            const query = yield call(getQuery, client, source, queryConfig);
+            TrendDataQuery = query;
+        }
 
-    if (!TrendDataQuery) {
-        const query = yield call(getQuery, client, source, queryConfig);
-        TrendDataQuery = query;
-    }
+        yield put(actions.requestTrendData(trendData.source));
 
-    yield put(actions.requestTrendData(trendData.source));
+        if (!TrendDataThread) {
+            const thread = yield call(getThread, client, TrendDataQuery);
+            TrendDataThread = thread;
+        }
 
-    if (!TrendDataThread) {
-        const thread = yield call(getThread, client, TrendDataQuery);
-        TrendDataThread = thread;
-    }
-
-    while (trendQueryRunning) {
-        try {
+        while (trendQueryRunning) {
             const data = yield call(fetchDataApi, TrendDataThread, 'trend');
-
             if (trendQueryRunning) {
                 yield put(actions.receiveTrendData(data));
             }
         }
-        catch(error) {
-            yield put(actions.requestTrendDataFailed(error));
-        }
+    } catch (error) {
+        console.log('CATCHING ERROR ');
+        console.log(error);
+        yield put(actions.requestTrendDataFailed(error));
     }
 }
 
@@ -226,6 +242,10 @@ function* startup(client) {
     yield fork(fetchPivotData, client, pivotData.source, pivotData.queryConfig);
 }
 
+/**
+ * Invokes the startup() method to perform the initial data requests.  It calls
+ * also changeTrendQuery() to perform data requests when users filter the trend query.  
+ */
 export default function* root(getState) {
     const client = yield call(createClient);
     ZoomdataClient = client;

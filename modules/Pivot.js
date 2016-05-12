@@ -7,6 +7,10 @@ var numeral = require('numeral');
 let pageSize = 100;;
 let allOfTheData;
 
+/**
+ * Pivot is a react component that renders a table visualization by using 
+ * AgGridReact. 
+ */
 export default class Pivot extends Component {
 
 	onGridReady(params) {
@@ -234,6 +238,9 @@ export default class Pivot extends Component {
         this.columnDefs = this.createColDefs();
     }
 
+    /**
+     * Only update the table if filter controls changed.
+     */
     shouldComponentUpdate(nextProps, nextState) {
         if (nextProps.isFilterChanged) {
             return true;

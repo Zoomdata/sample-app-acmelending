@@ -7,6 +7,11 @@ import image from '../images/loading.gif';
 
 let prevSelection = 'All';
 
+/**
+ * VisibleDonut wraps the Donut component.  It also uses react-redux to connect VisibleDonut 
+ * with the application state (mapStateToProps) and with mapDispatchToProps to allow it to 
+ * dispatch Redux actions when users click on Donut slices. 
+ */
 const mapDispatchToProps = (dispatch) => {
   return {
     onClick: (param) => {

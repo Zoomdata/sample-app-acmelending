@@ -24,3 +24,7 @@ To build for production deployment:
 ```
 NODE_ENV=production webpack -p
 ```
+
+## Developer Notes
+
+Set the production flag to false on config/index.js while developing and testing.  This flag makes the app point to the ZD app dev server instead of the ZD production server. 

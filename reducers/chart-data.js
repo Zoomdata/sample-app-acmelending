@@ -1,6 +1,11 @@
 import * as actions from '../actions';
 import { checkFailReason } from '../config';
 
+/**
+ * Specifies how the application state changes in response of "data" actions.  These data
+ * actions are triggered from the Sagas implemntation (request and receive data events).
+ */
+
 const initialState = {
     gradeData: {
         isFetching: false

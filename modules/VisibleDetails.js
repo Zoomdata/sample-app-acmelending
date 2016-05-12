@@ -9,6 +9,11 @@ import LoanStatusDropDown  from './LoanStatusDropDown';
 let currentFilter = {grade: 'All', status: 'All'};
 let previousFilter = currentFilter;
 
+/**
+ * VisibleDetails is a composite of the Pivot component and of its filter components.  It also 
+ * uses react-redux to connect VisibleDetails with the application state (mapStateToProps) and with 
+ * mapDispatchToProps to allow it to dispatch Redux actions to filter the Pivot component. 
+ */
 const mapDispatchToProps = (dispatch) => {
   return { 
     onGradeSelected: (event) => {

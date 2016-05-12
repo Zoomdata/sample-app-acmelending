@@ -5,8 +5,18 @@ import { WindowResizeListener } from 'react-window-resize-listener'
 
 var domElement;
 
+/**
+ * Donut is a react component that renders a Donut visualization by integrating
+ * ECharts. 
+ */
 var Donut = React.createClass({
 
+	/**
+	 * Renders a div which will be used to render the chart after this react component is 
+	 * mounted.  See componentDidMount() component life cycle method.  This method also 
+	 * contains the WindowResizeListener component to handle window resize events which should
+	 * resize the Donut visualization.
+	 */
 	render(){
 		var windowWidth = this.obtainWidth(window.innerWidth)
 		var windowHeight = this.obtainHeight(window.innerWidth);
@@ -25,10 +35,18 @@ var Donut = React.createClass({
     	)
 	},
 
+	/**
+	 * No need to update after the initial render since donut is used to filter other 
+	 * visualizations (KPIs) and it does not get filtered by anyone else.
+	 */
 	shouldComponentUpdate: function() {
 		return false;
 	},
 
+	/**
+	 * Obtains the DIV element rendered inthe render() function and initializes
+	 * ECharts with it.
+	 */
 	createChart: function() {
 	    // Initialize after dom ready
 	    domElement = ReactDOM.findDOMNode(this);
@@ -117,6 +135,10 @@ var Donut = React.createClass({
 		return option;
 	},
 
+	/**
+	 * To integrate ECharts, it creates the chart after this react component is mounted and its DIV
+	 * exists in the DOM.
+	 */
 	componentDidMount: function() {
     	this.createChart();
   	},

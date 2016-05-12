@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import VisibleDonut  from './VisibleDonut';
 import VisibleKPIs  from './VisibleKPIs';
 
+/**
+ * VisibleDonutKPIs is a composite of VisibleDonut and VisibleKPIs.
+ */
 export default class VisibleDonutKPIs extends Component {
 
 	render() {

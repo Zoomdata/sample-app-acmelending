@@ -29,6 +29,10 @@ const store = configureStore();
 
 const root = document.getElementById('app');
 
+/**
+ * Bootstraps the application with Redux and Sagas for event handling
+ * and side-effects (backend access).
+ */
 render(
 	<Provider store={store}>
         <App/>

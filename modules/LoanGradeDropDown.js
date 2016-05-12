@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
 
+/**
+ * LoanGradeDropDown is a react component that renders the "Loan Grade" drop-down by using the
+ * DropdownButton component.  LoanGradeDropDown is used by VisibleTrend and VisibleDetails as an
+ * example of component re-use.
+ */
 export default class LoanGradeDropDown extends Component {
 
 	render() {

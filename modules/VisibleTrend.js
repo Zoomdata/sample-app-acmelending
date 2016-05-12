@@ -9,6 +9,11 @@ import EmpLengthChecks from './EmpLengthChecks';
 import _ from 'lodash/core';
 import image from '../images/loading.gif';
 
+/**
+ * VisibleTrend is a composite of the Trend component and of its filter components.  It also 
+ * uses react-redux to connect VisibleTrend with the application state (mapStateToProps) and with 
+ * mapDispatchToProps to allow it to dispatch Redux actions. 
+ */
 const mapDispatchToProps = (dispatch) => {
   return {
     onEmpLengthSelected: (event, href, eventKey) => {

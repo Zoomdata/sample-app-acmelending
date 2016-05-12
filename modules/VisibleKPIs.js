@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import KPIs from './KPIs';
 import image from '../images/loading.gif';
 
+/**
+ * VisibleKPIs wraps the KPIs component.  It also uses react-redux to connect 
+ * KPIs with the application state (mapStateToProps). 
+ */
 const mapStateToProps = (state) => {
     var totals;
     if (state.chartData.kpiTotals === undefined) {

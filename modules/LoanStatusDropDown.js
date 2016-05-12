@@ -4,6 +4,11 @@ import { ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
 let loanStatuses = ['All', 'Chared Off', 'Current', 'Default', 'Fully Paid', 'In Grace Period', 
 					'Late (16-30 days)', 'Late (31-120 days)'];
 
+/**
+ * LoanStatusDropDown is a react component that renders the "Loan Status" drop-down by using the
+ * DropdownButton component.  LoanStatusDropDown is used by VisibleTrend and VisibleDetails as an
+ * example of component re-use.
+ */
 export default class LoanStatusDropDown extends Component {
 
 	render() {
