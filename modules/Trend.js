@@ -70,6 +70,12 @@ export default class Trend extends Component {
 		    toolbox: {
 		        show : false
 		    },
+			grid: {
+				x: 90,
+				y: 30,
+				x2: 20,
+				y2: 70
+			},
 		    calculable : true,
 		    dataZoom : {
 		        show : true,
@@ -150,7 +156,7 @@ export default class Trend extends Component {
 	obtainWidth(windowWidth) {
 		var width = windowWidth-this.props.widthMargin;
 
-		return width < 786 ? 786 : width;
+		return width < 500 ? 500 : width;
 	}
 
 	obtainHeight(windowWidth) {

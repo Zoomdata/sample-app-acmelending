@@ -50,7 +50,8 @@ var controlStyle = {
   paddingTop: '20',
   paddingRight: '40',
   paddingLeft: '70',
-  minWidth: '257'
+  minWidth: '257',
+  maxWidth: '257'
 };
 
 const loadTrend = (data, onClick) => {
@@ -97,8 +98,8 @@ const VisibleTrend = ({
 }) => {
     return (
       <div>
-        <div className='row'>
-            <div className='col-xs-3' style={controlStyle}>
+        <div className='wrapper'>
+            <div className='aside-1' style={controlStyle}>
                 <LoanGradeDropDown
                   items={gradeData.data}
                   onGradeSelected={onGradeSelected}
@@ -118,11 +119,11 @@ const VisibleTrend = ({
                 />
                 {renderFilterLoading(trendData)}
             </div>
-            <div className='col-xs-9'>
+            <div className='main'>
                 <div style={{padding:10}}/>
-                  {loadTrend(trendData.data, onClick)}
-                </div>
-          </div>
+                {loadTrend(trendData.data, onClick)}
+            </div>
+        </div>
       </div>
     )
 };

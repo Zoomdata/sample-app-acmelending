@@ -20,14 +20,14 @@ export default React.createClass({
       <div>
         <Tab.Container id="tabpanel" defaultActiveKey="first" style={{width: '100%'}}>
           <Grid>
-            <Row className="navbar navbar-default">
-              <Col xs={9} md={6}>
+            <Row className="navbar navbar-default" style={{minWidth: 800}}>
+              <Col xs={7} md={6}>
                 <div className="navbar-left" style={{paddingLeft: '15', paddingTop:'5'}}>
                   <img  src={image}></img>
                   <div style={{float:'right', paddingLeft: '30', paddingTop: '7', verticalAlign: 'middle', fontSize: '20'}}>Activity Dashboard</div>
                 </div>
               </Col>
-              <Col xs={9} md={6}>
+              <Col xs={4} md={6}>
                 <div className="navbar-right" style={{paddingTop:'5', paddingRight: '10'}}>
                   <Nav bsStyle="pills" stacked>
                     <NavItem eventKey="first">
