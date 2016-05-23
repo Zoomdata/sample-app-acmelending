@@ -6,7 +6,7 @@ import { serverDev } from './zd-connections/development';
 
 var production = false;
 
-var server = production ? serverProd : servDev;
+var server = production ? serverProd : serverDev;
 const {credentials, application, oauthOptions} = server;
 
 const oauthFinish = () => {
