@@ -16,7 +16,7 @@ npm install
 npm start
 
 #In the browser:
-http://localhost:8090/zd-data-app-01
+http://localhost:8090
 ```
 
 To build for production deployment:
@@ -24,6 +24,12 @@ To build for production deployment:
 ```
 NODE_ENV=production webpack -p
 ```
+or
+
+```
+env NODE_ENV=production webpack -p
+```
+
 
 ## Developer Notes
 
