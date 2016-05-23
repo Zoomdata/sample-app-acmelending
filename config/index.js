@@ -4,8 +4,9 @@ import ZoomdataSDK from 'zoomdata-client';
 import { serverProd } from './zd-connections/production';
 import { serverDev } from './zd-connections/development';
 
-var server = serverDev;
+var production = false;
 
+var server = production ? serverProd : servDev;
 const {credentials, application, oauthOptions} = server;
 
 const oauthFinish = () => {
