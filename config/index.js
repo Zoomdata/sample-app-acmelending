@@ -1,45 +1,47 @@
+import { start as oauthStart, parseCredentials } from 'oauth2-implicit'
+import { tapValue, clearLocationHash } from 'oauth2-implicit/build/utils';
 import ZoomdataSDK from 'zoomdata-client';
+import { serverProd } from './zd-connections/production';
+import { serverDev } from './zd-connections/development';
 
-// Switch to false for development mode
-var production = false;
+var server = serverDev;
 
-var redirect = {
-	dev_uri: "http://localhost:8090/zd-data-app-01",
-	prod_uri: "http://demos.zoomdata.com/zd-data-app-01"
-}
+const {credentials, application, oauthOptions} = server;
 
-var devAppConfig = {
-	secure: true,   
-	host: 'pubsdk.zoomdata.com',                
-	port: 8443,                 
-	path: '/zoomdata'
-}
+const oauthFinish = () => {
+    // isOauthRedirect :: String -> Bool
+    const isOauthRedirect = (hashString) => (
+        hashString.indexOf('#access_token') !== -1
+    );
 
-var prodAppConfig = {
-	secure: true,   
-	host: 'developer.zoomdata.com',                
-	port: 443,                 
-	path: '/zoomdata'
-}
+    /* This function mutates location to remove the retrieved credentials */
+    // extractCredentials :: String -> {} || null
+    const extractCredentials = (hash) => (
+        tapValue(
+            parseCredentials(hash),
+            clearLocationHash
+        )
+    );
 
-var devCredentialsConfig = {
-  	key: "56ec8877e4b0c1680babc247"
-}
+    if (isOauthRedirect(location.hash)) {
+        const oauthCredentials = extractCredentials(location.hash.slice(1));
+        credentials.access_token = oauthCredentials.accessToken;
+        return oauthCredentials;
+    } else {
+        return null;
+    }
+};
 
-var prodCredentialsConfig = {
-  	key: "5731f2afe4b0ef63190d163c"
-}
+const oauthInit = (options) => {
+    oauthFinish() || oauthStart(options);
+};
 
-function obtainRedirect() {
-	return production ? redirect.prod_uri : redirect.dev_uri;
-}
+oauthInit(oauthOptions);
 
 function initClient() {
-	var applicationConfig = production ? prodAppConfig : devAppConfig;
-	var credentialsConfig = production ? prodCredentialsConfig : devCredentialsConfig;
     return ZoomdataSDK.createClient({
-        credentials: credentialsConfig,
-        application: applicationConfig
+        credentials: credentials,
+        application: application
     });
 }
 
@@ -58,8 +60,14 @@ export function checkFailReason(reason) {
 	  }
 	}
 	if (redirect) {
-	  window.location.href= obtainRedirect();  
+	  window.location.href= oauthOptions.redirect_uri
 	}
 }
 
+
 export const createClient = initClient;
+export const secure = application.secure;
+export const host = application.host;
+export const port = application.port;
+export const path = application.path;
+export const access_token = credentials.access_token;
