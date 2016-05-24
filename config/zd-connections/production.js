@@ -9,7 +9,7 @@ export const serverProd = {
           path: '/zoomdata'
     },
     oauthOptions: {
-        client_id: "emQtZGF0YS1hcHAtMDExNDY0MDAzNDE1NzYxMDMzNGI5YTMtODRiNS00NzA2LThhNTktNDlmMzNhOTg3MjEx",
+        client_id: "emQtZGF0YS1hcHAtMDExNDY0MTA2NDc2ODgwNzkzM2M0ZDgtYTQ2OC00MTY2LTgxNmUtM2JhOTllMjljZDk1",
         redirect_uri: "https://developer.zoomdata.com/sample/acmelending",
         auth_uri: "https://developer.zoomdata.com/zoomdata/oauth/authorize",
         scope: ['read']

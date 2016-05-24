@@ -9,7 +9,7 @@ export const serverDev = {
         path: '/zoomdata'
     },
     oauthOptions: {
-        client_id: "emQtZGF0YS1hcHAtMDExNDY0MDAzMzI2NDkwY2VhOWRjZmYtYzA0NS00YTc2LTk0NmEtMDRlYjlmNGNjYzdj",
+        client_id: "emQtZGF0YS1hcHAtMDExNDY0MTA1MDE1MDQ5MWIwY2FjOWEtMjllYy00MjExLWJkYjktNTBmYTM5OTVmYTM2",
         redirect_uri: "http://localhost:8090",
         auth_uri: "https://pubsdk.zoomdata.com:8443/zoomdata/oauth/authorize",
         scope: ['read']
