@@ -12,7 +12,7 @@ export default class VisibleDonutKPIs extends Component {
 	render() {
 		return (
 			<div className="row" >
-				<div className="col-xs-6" style={{minWidth: '444'}}>
+				<div className="col-xs-6" style={{minWidth: '444',textAlign:'-webkit-center'}} >
 					<VisibleDonut/>
 				</div>			
 				<div className="col-xs-6">

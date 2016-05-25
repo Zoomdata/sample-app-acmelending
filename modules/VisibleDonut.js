@@ -42,7 +42,7 @@ const loadDonut = (data, onClick) => {
     var heightRatio = 1;
     return (
         <div className='row' style={{margin:'auto', autowidth:'80%'}}>
-          <div className='col-md-12' style={{paddingLeft: 100}}>
+        <div className='col-md-12'>
             <div><h4 style={{textAlign: 'center'}}>Loans by Grade</h4></div>
             <Donut 
               items={data}
