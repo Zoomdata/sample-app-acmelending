@@ -4,7 +4,7 @@ import ZoomdataSDK from 'zoomdata-client';
 import { serverProd } from './zd-connections/production';
 import { serverDev } from './zd-connections/development';
 
-var production = false;
+var production = true;
 
 var server = production ? serverProd : serverDev;
 const {credentials, application, oauthOptions} = server;
@@ -12,7 +12,7 @@ const {credentials, application, oauthOptions} = server;
 const oauthFinish = () => {
     // isOauthRedirect :: String -> Bool
     const isOauthRedirect = (hashString) => (
-        hashString.indexOf('#access_token') !== -1
+        hashString.indexOf('#access_token') !== -1 || hashString.indexOf('&access_token') !== -1
     );
 
     /* This function mutates location to remove the retrieved credentials */
