@@ -153,8 +153,10 @@ var Donut = React.createClass({
 
 	obtainWidth(windowWidth) {
 		var width = windowWidth-this.props.widthMargin;
+		width = width < 318 ? 318 : width; // min width limit
+		width = width > 600 ? 600 : width; // max width limit
 
-		return width < 318 ? 318 : width;
+		return width;
 	},
 
 	obtainHeight(windowWidth) {

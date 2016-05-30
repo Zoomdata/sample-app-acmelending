@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import {AgGridReact} from 'ag-grid-react';
 import 'ag-grid-root/ag-grid.css';
 import 'ag-grid-root/theme-fresh.css';
-
+import { WindowResizeListener } from 'react-window-resize-listener'
+var ReactDOM = require('react-dom');
 var numeral = require('numeral');
 let pageSize = 100;;
 let allOfTheData;
+var domElement;
 
 /**
  * Pivot is a react component that renders a table visualization by using 
@@ -54,6 +56,15 @@ export default class Pivot extends Component {
         if (nextProps.isFilterChanged) {
             allOfTheData = undefined;
         }
+    }
+
+    /**
+     * To integrate ECharts, it creates the chart after this react component is mounted and its DIV
+     * exists in the DOM.
+     */
+    componentDidMount() {
+        domElement = ReactDOM.findDOMNode(this);
+
     }
 
     componentDidUpdate() {
@@ -254,10 +265,13 @@ export default class Pivot extends Component {
 
 	  	return (
 
-	        	<div    
-	                    className='ag-fresh'
-	                    style={{height: 570}}
-	            >
+	        	<div className='ag-fresh' >
+                    <WindowResizeListener onResize={windowSize => {
+                        if (domElement !== undefined) {
+                            var height = windowSize.windowHeight - 100;
+                            domElement.style.height = height + 'px';                      
+                        }
+                    }}/>
 			  		<AgGridReact 
 			  			rowData={allOfTheData}
 			  			onGridReady={this.onGridReady.bind(this)}

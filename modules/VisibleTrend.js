@@ -61,7 +61,7 @@ const loadTrend = (data, onClick) => {
     );
   } else {
     var widthMargin = 380;
-    var heightRatio = 1.6;
+    var heightRatio = 1.8;
     return (
         <Trend 
           items={data}
