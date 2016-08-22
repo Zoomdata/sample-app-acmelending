@@ -48,9 +48,7 @@ export default class Trend extends Component {
 		}
 
 		var xAxis = items.map(function(item) {
-			var m = moment(item.group[0],'YYYY-MM-DD HH:mm:ss');
-			var str = m.format('MMM YYYY');
-			return str;
+			return moment(item.group[0]).format('MMM YYYY');
 		});
 		var yAxis1 = items.map(function(item) {
 			return item.current.metrics.loan_amnt.sum.toFixed(0);
