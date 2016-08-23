@@ -9,6 +9,7 @@ export const queryConfig = {
     groups: [{
         name: 'issue_d',
         func: 'DAY',
+        type: 'TIME',
         limit: 1000,
         sort: {
             dir: 'asc',
