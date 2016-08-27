@@ -1,12 +1,14 @@
 # zd-data-app-01
 
-This is an advanced data app example that uses the Zoomdata SDK v2.2 to query the Lending Club datasource hosted by a Zoomdata instance at pubsdk.zoomdata.com.
+This is an advanced data app example that uses the Zoomdata SDK v2.0 to query the Lending Club datasource hosted by a Zoomdata instance at pubsdk.zoomdata.com.
 
 Try this application live at https://developer.zoomdata.com/sample/acmelending. Use the following credentials:
 ```
 user: zoomdata
 pass: zoomdata
 ```
+
+Use the 2.2 branch in repo when pointing to Zoomdata v2.2.  Use the master branch when pointing to Zoomdata v2.3.0.
 
 ## Installation
 
