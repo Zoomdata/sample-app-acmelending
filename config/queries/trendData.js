@@ -1,4 +1,4 @@
-export const source = 'Lending Club Loans Data';
+export const source = 'Lending Data';
 export const queryConfig = {
     tz: 'EST',
     filters: [],
