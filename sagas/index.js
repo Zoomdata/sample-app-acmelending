@@ -12,8 +12,7 @@ import { createClient } from '../config';
  * components are executed.
  */
 
-let queryData = [];
-let gradeQueryRunning, kpiQueryRunning, kpiTotalQueryRunning, trendQueryRunning, pivotQueryRunning;
+let pivotQuery = false;
 
 /**
  * fetchDataApi uses the Zoomdata SDK thread object to retrieve the query results.  The 
@@ -24,23 +23,16 @@ function fetchDataApi(thread, group) {
     return new Promise( function(resolve, reject) {
         try {
             thread.on('thread:message', function(data) {
-                queryData = data;
-                resolve(queryData);
+                resolve(data);
             });
 
             thread.on('thread:notDirtyData', function() {
-                if (queryGroup === 'grade') {
-                    gradeQueryRunning = false;
-                } else if (queryGroup === 'kpi') {
-                    kpiQueryRunning = false;
-                } else if (queryGroup === 'kpitotals') {
-                    kpiTotalQueryRunning = false;
-                } else if (queryGroup === 'trend') {
-                    trendQueryRunning = false;
-                } else if (queryGroup === 'pivot') {
-                    pivotQueryRunning = false;
+                if (queryGroup === 'pivot') {
+                    PivotDataThread.requestData({
+                        columnsOffset: 0,
+                        columnsCount: 250
+                    });
                 }
-                resolve(queryData);
             });
 
             thread.on('thread:exeption', function(error) {
@@ -60,9 +52,32 @@ function getQuery(client, source, queryConfig) {
 }
 
 function getThread(client, query) {
+    if(pivotQuery){
+        var dim = modifyPivotQuery( query.getDimension(0));
+        query.resetDimensions(dim)
+    } 
     return client.run(query);
 }
 
+function modifyPivotQuery(dimension){
+    pivotQuery = false;
+    var dimWindow = dimension.window;
+    dimWindow.type = "SIMPLE";
+    dimWindow.offset = 0;
+    dimWindow.limit = pivotData.queryConfig.queryLimit;
+    dimWindow.sort = { aggregationSorts:[], type: "ALPHABETICAL" }
+    delete dimWindow.aggregationWindows;
+    dimWindow.sort.aggregationSorts = pivotData.queryConfig.groups.map((g) => {
+        return{
+            aggregation:{
+                field: { name: g.name },
+                type: "TERMS"
+            },
+            direction: g.sort.dir.toUpperCase()
+        }
+    })
+    return [dimension, { aggregations:[]}]
+}
 
 var makeSingleFilter = function(path) {
     return function(value) {
@@ -129,7 +144,6 @@ function* changeTrendQuery(getState) {
 }
 
 function* fetchTrendData(client, source, queryConfig) {
-    trendQueryRunning = true;
     try {
         if (!TrendDataQuery) {
             const query = yield call(getQuery, client, source, queryConfig);
@@ -143,19 +157,14 @@ function* fetchTrendData(client, source, queryConfig) {
             TrendDataThread = thread;
         }
 
-        while (trendQueryRunning) {
-            const data = yield call(fetchDataApi, TrendDataThread, 'trend');
-            if (trendQueryRunning) {
-                yield put(actions.receiveTrendData(data));
-            }
-        }
+        const data = yield call(fetchDataApi, TrendDataThread, 'trend');
+        yield put(actions.receiveTrendData(data));
     } catch (error) {
         yield put(actions.requestTrendDataFailed(error));
     }
 }
 
 function* fetchKPIData(client, source, queryConfig) {
-    kpiQueryRunning = true;
     if (!KPIDataQuery) {
         const query = yield call(getQuery, client, source, queryConfig);
         KPIDataQuery = query;
@@ -165,16 +174,11 @@ function* fetchKPIData(client, source, queryConfig) {
         const thread = yield call(getThread, client, KPIDataQuery);
         KPIDataThread = thread;
     }
-    while (kpiQueryRunning) {
-        const data = yield call(fetchDataApi, KPIDataThread, 'kpi');
-        if (kpiQueryRunning) {
-            yield put(actions.receiveKPIData(data));
-        }
-    }
+    const data = yield call(fetchDataApi, KPIDataThread, 'kpi');
+    yield put(actions.receiveKPIData(data));
 }
 
 function* fetchKPITotals(client, source, queryConfig) {
-    kpiTotalQueryRunning = true;
     if (!KPITotalQuery) {
         const query = yield call(getQuery, client, source, queryConfig);
         KPITotalQuery = query;
@@ -184,35 +188,26 @@ function* fetchKPITotals(client, source, queryConfig) {
         const thread = yield call(getThread, client, KPITotalQuery);
         KPITotalThread = thread;
     }
-    while (kpiTotalQueryRunning) {
-        const data = yield call(fetchDataApi, KPITotalThread, 'kpitotals');
-        if (kpiTotalQueryRunning) {
-            yield put(actions.receiveKPITotals(data));
-        }
-    }
+    const data = yield call(fetchDataApi, KPITotalThread, 'kpitotals');
+    yield put(actions.receiveKPITotals(data));
 }
 
 function* fetchPivotData(client, source, queryConfig) {
-    pivotQueryRunning = true;
     if (!PivotDataQuery) {
         const query = yield call(getQuery, client, source, queryConfig);
         PivotDataQuery = query;
     }
     yield put(actions.requestPivotData(pivotData.source));
+    pivotQuery = true;
     if (!PivotDataThread) {
         const thread = yield call(getThread, client, PivotDataQuery);
         PivotDataThread = thread;
     }
-    while (pivotQueryRunning) {
-        const data = yield call(fetchDataApi, PivotDataThread, 'pivot');
-        if (pivotQueryRunning) {
-            yield put(actions.receivePivotData(data));
-        }
-    }
+    const data = yield call(fetchDataApi, PivotDataThread, 'pivot');
+    yield put(actions.receivePivotData(data));
 }
 
 function* fetchGradeData(client, source, queryConfig) {
-    gradeQueryRunning = true;
     if (!GradeDataQuery) {
         const query = yield call(getQuery, client, source, queryConfig);
         GradeDataQuery = query;
@@ -222,12 +217,8 @@ function* fetchGradeData(client, source, queryConfig) {
         const thread = yield call(getThread, client, GradeDataQuery);
         GradeDataThread = thread;
     }
-    while (gradeQueryRunning) {
-        const data = yield call(fetchDataApi, GradeDataThread, 'grade');
-        if (gradeQueryRunning) {
-            yield put(actions.receiveGradeData(data));
-        }
-    }
+    const data = yield call(fetchDataApi, GradeDataThread, 'grade');
+    yield put(actions.receiveGradeData(data));
 }
 
 function* startup(client) {
@@ -245,7 +236,7 @@ function* startup(client) {
 export default function* root(getState) {
     const client = yield call(createClient);
     ZoomdataClient = client;
-    yield call(client.sources.update, {name: 'Lending Club Loans Data'})
+    yield call(client.sources.update, {name: 'Lending Data'})
     yield fork(startup, ZoomdataClient);
     yield fork(changeTrendQuery, getState);
 }

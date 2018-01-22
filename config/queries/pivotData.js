@@ -1,8 +1,10 @@
-export const source = 'Lending Club Loans Data';
+export const source = 'Lending Data';
 export const queryConfig = {
     tz: 'EST',
     filters: [],
     player: null,
+    queryLimit: 2000, // For the new ws API, individual limits don't work if more than 3 groups are specified
+                    // so only one single query limit must be used
     time: {
       from: '+2015-01-15 00:00:00.000',
       to: '+2015-06-15 00:00:00.000',
@@ -33,23 +35,6 @@ export const queryConfig = {
         },
         limit: 100
       }
-      // ,
-      // {
-      //   name: 'emp_length',
-      //   sort: {
-      //       dir: 'asc',
-      //       name: 'emp_length'
-      //   },
-      //   limit: 20
-      // },
-      // {
-      //   name: '$to_day(issue_d)',
-      //   sort: {
-      //       dir: 'asc',
-      //       name: '$to_day(issue_d)'
-      //   },
-      //   limit: 20
-      // }        
     ],
     metrics: [
            {

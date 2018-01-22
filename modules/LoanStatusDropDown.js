@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
 
-let loanStatuses = ['All', 'Chared Off', 'Current', 'Default', 'Fully Paid', 'In Grace Period', 
+let loanStatuses = ['All', 'Charged Off', 'Current', 'Default', 'Fully Paid', 'In Grace Period', 
 					'Late (16-30 days)', 'Late (31-120 days)'];
 
 /**
