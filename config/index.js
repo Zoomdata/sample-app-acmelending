@@ -3,7 +3,7 @@ import ZoomdataSDK from 'zoomdata-client';
 var applicationConfig = {
      secure: true,
      host: 'live.zoomdata.com',
-     port: 8443,
+     port: 443,
      path: '/zoomdata'
 }
 
